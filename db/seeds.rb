@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+admin1 = Admin.new :name => ENV["ADMIN_NAME"], :email => ENV["ADMIN_EMAIL"], :password => ENV["ADMIN_PASSWORD"], :confirmed_at => Time.now
+admin1.skip_confirmation!
+admin1.save!
