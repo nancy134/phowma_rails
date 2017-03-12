@@ -4,13 +4,12 @@ class User < ActiveRecord::Base
           :recoverable, :rememberable, :trackable, :validatable,
           :confirmable, :omniauthable
 
-  after_create :send_confirmation_email, if: -> { !Rails.env.test? && User.devise_modules.include?(:confirmable) }
-
-  private
-  def send_confirmation_email
-    self.send_confirmation_instructions
-  end
-
   include DeviseTokenAuth::Concerns::User
+
+  # This is needed because devise_auth_token sets this to null in
+  # DeviseTokenAuth::Concerns::User
+  def send_confirmation_notification?
+    return self.web
+  end
 
 end
