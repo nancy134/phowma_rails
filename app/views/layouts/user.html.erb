@@ -9,8 +9,12 @@
   </head>
 
   <body>
-    <p class="notice">A:<%= notice %></p>
-    <p class="alert">A:<%= alert %></p>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <ul class="hmenu">
+      <%= render 'users/menu/registration_items' %>
+      <%= render 'users/menu/login_items' %>
+    </ul>
     <%= yield %>
   </body>
 </html>

@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations'}
-  devise_for :admins, :controllers => { :registrations => "registrations"}
+  devise_for :admins, :controllers => { :registrations => 'admins/registrations'}
   as :admin do
     # Define routes for Admin within this block.
   end
-  get 'welcome/index'
-  root 'welcome#index'
+  get 'users/welcome/index'
+  get 'admins/welcome/index'
+  root 'users/welcome#index'
 
   namespace :api do
     namespace :v1 do
