@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admins_state.name %>
+</p>
+
+<p>
+  <strong>Abbreviation:</strong>
+  <%= @admins_state.abbreviation %>
+</p>
+
+<%= link_to 'Edit', edit_admins_state_path(@admins_state) %> |
+<%= link_to 'Back', admins_states_path %>

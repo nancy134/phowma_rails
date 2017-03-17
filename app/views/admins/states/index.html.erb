@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admins States</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Abbreviation</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admins_states.each do |admins_state| %>
+      <tr>
+        <td><%= admins_state.name %></td>
+        <td><%= admins_state.abbreviation %></td>
+        <td><%= link_to 'Show', admins_state %></td>
+        <td><%= link_to 'Edit', edit_admins_state_path(admins_state) %></td>
+        <td><%= link_to 'Destroy', admins_state, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admins State', new_admins_state_path %>
