@@ -1,6 +1,8 @@
 class Admins::State < ApplicationRecord
   require 'csv'
 
+  has_many :politicians, class_name: 'Admins::Politician'
+
   def self.import(file)
     CSV.foreach(file.path, headers: true, :row_sep => :auto) do |row|
       state_hash = row.to_hash
