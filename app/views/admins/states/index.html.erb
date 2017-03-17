@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Admins States</h1>
-
+<%= will_paginate @admins_states %>
 <table>
   <thead>
     <tr>
@@ -23,7 +23,14 @@
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @admins_states %>
 <br>
 
 <%= link_to 'New Admins State', new_admins_state_path %>
+
+</br>
+<%= form_tag import_admins_states_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :admins do
-    resources :states
+    resources :states do
+      collection {post :import}
+    end
   end
   devise_for :users, controllers: { registrations: 'users/registrations'}
   devise_for :admins, :controllers => { :registrations => 'admins/registrations'}

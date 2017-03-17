@@ -1,10 +1,12 @@
+require 'csv'
+
 class Admins::StatesController < ApplicationController
   before_action :set_admins_state, only: [:show, :edit, :update, :destroy]
 
   # GET /admins/states
   # GET /admins/states.json
   def index
-    @admins_states = Admins::State.all
+    @admins_states = Admins::State.all.paginate(page: params[:page], per_page: 20)
   end
 
   # GET /admins/states/1
@@ -59,6 +61,11 @@ class Admins::StatesController < ApplicationController
       format.html { redirect_to admins_states_url, notice: 'State was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Admins::State.import(params[:file])
+    redirect_to action: "index"
   end
 
   private
