@@ -4,7 +4,7 @@ class Admins::PoliticiansController < ApplicationController
   # GET /admins/politicians
   # GET /admins/politicians.json
   def index
-    @admins_politicians = Admins::Politician.all
+    @admins_politicians = Admins::Politician.all.paginate(page: params[:page], per_page: 20)
   end
 
   # GET /admins/politicians/1
@@ -61,6 +61,11 @@ class Admins::PoliticiansController < ApplicationController
     end
   end
 
+  def import
+    Admins::Politician.import(params[:file])
+    redirect_to action: "index"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admins_politician
@@ -69,6 +74,6 @@ class Admins::PoliticiansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_politician_params
-      params.require(:admins_politician).permit(:name, :party, :state_id)
+      params.require(:admins_politician).permit(:name, :first_name, :last_name, :position, :party, :state_id)
     end
 end

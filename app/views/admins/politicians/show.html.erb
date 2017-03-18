@@ -6,13 +6,28 @@
 </p>
 
 <p>
+  <strong>First Name:</strong>
+  <%= @admins_politician.first_name %>
+</p>
+
+<p>
+  <strong>Last Name:</strong>
+  <%= @admins_politician.last_name %>
+</p>
+
+<p>
   <strong>Party:</strong>
   <%= @admins_politician.party %>
 </p>
 
 <p>
+  <strong>Position:</strong>
+  <%= @admins_politician.position %>
+</p>
+
+<p>
   <strong>State:</strong>
-  <%= @admins_politician.state_id %>
+  <%= @admins_politician.state.name %>
 </p>
 
 <%= link_to 'Edit', edit_admins_politician_path(@admins_politician) %> |

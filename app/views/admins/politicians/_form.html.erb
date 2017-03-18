@@ -12,6 +12,16 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
@@ -24,6 +34,11 @@
   <div>
     <%= f.label :party %>
     <%= f.select(:party, Admins::Politician.parties.keys.map {|party| [party.titleize, party]}) %>
+  </div>
+
+  <div>
+    <%= f.label :position %>
+    <%= f.select(:position, Admins::Politician.positions.keys.map {|position| [position.titleize, position]}) %>
   </div>
 
   <div class="actions">
