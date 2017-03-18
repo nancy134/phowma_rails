@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @admins_area_code.code %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @admins_area_code.state.name %>
+</p>
+
+<%= link_to 'Edit', edit_admins_area_code_path(@admins_area_code) %> |
+<%= link_to 'Back', admins_area_codes_path %>

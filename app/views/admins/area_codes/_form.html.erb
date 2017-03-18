@@ -1,0 +1,27 @@
+<%= form_for(admins_area_code) do |f| %>
+  <% if admins_area_code.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(admins_area_code.errors.count, "error") %> prohibited this admins_area_code from being saved:</h2>
+
+      <ul>
+      <% admins_area_code.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %>
+    <%= f.text_field :code %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state %>
+    <%= collection_select(:admins_area_code, :state_id, Admins::State.all, :id, :name) %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
