@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Party:</strong>
+  <%= @admins_election_result.party %>
+</p>
+
+<p>
+  <strong>Election:</strong>
+  <%= @admins_election_result.election_id %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @admins_election_result.state_id %>
+</p>
+
+<%= link_to 'Edit', edit_admins_election_result_path(@admins_election_result) %> |
+<%= link_to 'Back', admins_election_results_path %>

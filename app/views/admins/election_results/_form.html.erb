@@ -1,0 +1,32 @@
+<%= form_for(admins_election_result) do |f| %>
+  <% if admins_election_result.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(admins_election_result.errors.count, "error") %> prohibited this admins_election_result from being saved:</h2>
+
+      <ul>
+      <% admins_election_result.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :party %>
+    <%= f.select(:party, Admins::ElectionResult.parties.keys.map {|party| [party.titleize, party]}) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :election_id %>
+    <%= collection_select(:election_result, :election_id, Admins::Election.all, :id, :election_name) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state_id %>
+    <%= collection_select(:election_result, :state_id, Admins::State.all, :id, :name) %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

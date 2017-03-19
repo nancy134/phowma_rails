@@ -1,0 +1,2 @@
+module Admins::ElectionResultsHelper
+end

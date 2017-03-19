@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170319110015) do
+ActiveRecord::Schema.define(version: 20170319114118) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20170319110015) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["state_id"], name: "index_admins_area_codes_on_state_id"
+  end
+
+  create_table "admins_election_results", force: :cascade do |t|
+    t.integer  "party"
+    t.integer  "election_id"
+    t.integer  "state_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["election_id"], name: "index_admins_election_results_on_election_id"
+    t.index ["state_id"], name: "index_admins_election_results_on_state_id"
   end
 
   create_table "admins_elections", force: :cascade do |t|

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admins Election Results</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Party</th>
+      <th>Election</th>
+      <th>State</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admins_election_results.each do |admins_election_result| %>
+      <tr>
+        <td><%= admins_election_result.party %></td>
+        <td><%= admins_election_result.election_id %></td>
+        <td><%= admins_election_result.state_id %></td>
+        <td><%= link_to 'Show', admins_election_result %></td>
+        <td><%= link_to 'Edit', edit_admins_election_result_path(admins_election_result) %></td>
+        <td><%= link_to 'Destroy', admins_election_result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admins Election Result', new_admins_election_result_path %>
