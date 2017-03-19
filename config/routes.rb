@@ -10,7 +10,9 @@ Rails.application.routes.draw do
       collection {post :import}
     end
     resources :elections
-    resources :election_results
+    resources :election_results do
+      collection {post :import}
+    end
   end
   devise_for :users, controllers: { registrations: 'users/registrations'}
   devise_for :admins, :controllers => { :registrations => 'admins/registrations'}

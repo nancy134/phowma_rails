@@ -17,7 +17,7 @@
       <tr>
         <td><%= admins_election_result.party %></td>
         <td><%= admins_election_result.election_id %></td>
-        <td><%= admins_election_result.state_id %></td>
+        <td><%= admins_election_result.state.name %></td>
         <td><%= link_to 'Show', admins_election_result %></td>
         <td><%= link_to 'Edit', edit_admins_election_result_path(admins_election_result) %></td>
         <td><%= link_to 'Destroy', admins_election_result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -26,6 +26,11 @@
   </tbody>
 </table>
 
+<br>
+<%= form_tag import_admins_election_results_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
 <br>
 
 <%= link_to 'New Admins Election Result', new_admins_election_result_path %>

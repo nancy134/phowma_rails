@@ -18,4 +18,50 @@ class Admins::State < ApplicationRecord
    end
 
   end
+
+  def congress
+    politician = politicians.where(position: "congressman")
+    return politician.length
+  end
+  def congress_dems
+    politician = politicians.where(position: "congressman", party: "democrat")
+    return politician.length
+  end
+  def congress_dem_percentage
+    return self.congress_dems.to_f/self.congress.to_f*100
+  end
+  def senate
+    politician = politicians.where(position: "senator")
+    return politician.length
+  end
+  def senate_dems
+    politician = politicians.where(position: "senator", party: ["democrat","independent"])
+    return politician.length
+  end
+  def senate_dem_percentage
+    return self.senate_dems.to_f/self.senate.to_f*100
+  end
+  def governor_dems
+    politician = politicians.where(position: "governor", party: ["democrat", "independent"])
+    return politician.length
+  end
+  def governor_dem_percentage
+    return self.governor_dems.to_f*100
+  end
+  def president_2016
+    er = election_results.first
+
+    if (er && er.party == "democrat")
+      return 100
+    else
+      return 0
+    end
+  end
+  def stars
+    return [president_2016,senate_dem_percentage, congress_dem_percentage, governor_dem_percentage, 0]
+  end
+  def total
+    return president_2016+senate_dem_percentage+congress_dem_percentage+governor_dem_percentage
+  end
+
 end
