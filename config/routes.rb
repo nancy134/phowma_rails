@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     resources :politicians do
       collection {post :import}
     end
-    resources :area_codes
+    resources :area_codes do
+      collection {post :import}
+    end
   end
   devise_for :users, controllers: { registrations: 'users/registrations'}
   devise_for :admins, :controllers => { :registrations => 'admins/registrations'}

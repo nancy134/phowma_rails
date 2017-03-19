@@ -26,4 +26,11 @@
 
 <br>
 
+<%= form_tag import_admins_area_codes_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+
+</br>
+
 <%= link_to 'New Admins Area Code', new_admins_area_code_path %>
