@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :states, only: [:index]
+      resources :area_codes, only: [:index]
       mount_devise_token_auth_for 'User', at: 'auth'
       mount_devise_token_auth_for 'Admin', at: 'admin_auth', :skip => [:registrations]
     end

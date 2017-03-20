@@ -18,12 +18,12 @@
 
   <div class="field">
     <%= f.label :election_id %>
-    <%= collection_select(:election_result, :election_id, Admins::Election.all, :id, :election_name) %>
+    <%= collection_select(:admins_election_result, :election_id, Admins::Election.all, :id, :election_name) %>
   </div>
 
   <div class="field">
     <%= f.label :state_id %>
-    <%= collection_select(:election_result, :state_id, Admins::State.all, :id, :name) %>
+    <%= collection_select(:admins_election_result, :state_id, Admins::State.all, :id, :name) %>
   </div>
 
   <div class="actions">

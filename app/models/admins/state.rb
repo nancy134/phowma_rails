@@ -2,8 +2,8 @@ class Admins::State < ApplicationRecord
   require 'csv'
 
   has_many :politicians, class_name: 'Admins::Politician'
-  has_many :area_codes, class_name: 'Admins::Area_Code'
-  has_many :election_results, class_name: 'Admins::Election_Result'
+  has_many :area_codes, class_name: 'Admins::AreaCode'
+  has_many :election_results, class_name: 'Admins::ElectionResult'
 
   def self.import(file)
     CSV.foreach(file.path, headers: true, :row_sep => :auto) do |row|
@@ -28,7 +28,11 @@ class Admins::State < ApplicationRecord
     return politician.length
   end
   def congress_dem_percentage
-    return self.congress_dems.to_f/self.congress.to_f*100
+    if self.abbreviation == "DC"
+       return 100
+    else
+      return self.congress_dems.to_f/self.congress.to_f*100
+    end
   end
   def senate
     politician = politicians.where(position: "senator")
@@ -39,14 +43,22 @@ class Admins::State < ApplicationRecord
     return politician.length
   end
   def senate_dem_percentage
-    return self.senate_dems.to_f/self.senate.to_f*100
+    if self.abbreviation == "DC"
+      return 100
+    else
+      return self.senate_dems.to_f/self.senate.to_f*100
+    end
   end
   def governor_dems
     politician = politicians.where(position: "governor", party: ["democrat", "independent"])
     return politician.length
   end
   def governor_dem_percentage
-    return self.governor_dems.to_f*100
+    if self.abbreviation == "DC"
+      return 100
+    else 
+      return self.governor_dems.to_f*100
+    end
   end
   def president_2016
     er = election_results.first

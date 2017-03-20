@@ -1,6 +1,6 @@
 class Admins::Election < ApplicationRecord
 
-  has_many :election_results, class_name: 'Admins::Election_Result'
+  has_many :election_results, class_name: 'Admins::ElectionResult'
 
   enum position: [:president, :senate, :congress, :governor]
 
