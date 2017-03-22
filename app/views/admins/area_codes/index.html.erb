@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Admins Area Codes</h1>
-
+<%= will_paginate @admins_area_codes %>
 <table>
   <thead>
     <tr>
@@ -23,7 +23,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @admins_area_codes %>
 <br>
 
 <%= form_tag import_admins_area_codes_path, multipart: true do %>
