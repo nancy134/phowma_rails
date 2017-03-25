@@ -6,9 +6,6 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
   def layout_by_resource
-    #Rails.logger.debug "NANCY: params[:controller]: #{params[:controller]}"
-    Rails.logger.debug "NANCY: params[0]: #{params[:controller].split('/')[0]}"
-    #if (params[:controller].split('/')[0] == 'admins')
     if (devise_controller? && resource_name == :admin || params[:controller].split('/')[0] == 'admins')
       "admin"
     else
