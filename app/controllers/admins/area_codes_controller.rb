@@ -1,4 +1,5 @@
 class Admins::AreaCodesController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_admins_area_code, only: [:show, :edit, :update, :destroy]
 
   # GET /admins/area_codes

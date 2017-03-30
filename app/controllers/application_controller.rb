@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
    when User
     '/users/welcome/index' 
    when Admin
-    '/admins/welcome/index' 
+    session["admin_return_to"] || '/admins/welcome/index'
   end
   end
 

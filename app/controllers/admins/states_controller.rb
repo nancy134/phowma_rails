@@ -7,6 +7,7 @@ class Admins::StatesController < ApplicationController
   # GET /admins/states
   # GET /admins/states.json
   def index
+    Rails.logger.debug "NANCY: params:controller: #{params[:controller]}"
     @admins_states = Admins::State.all.paginate(page: params[:page], per_page: 20)
   end
 

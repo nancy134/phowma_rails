@@ -1,4 +1,5 @@
 class Admins::ElectionResultsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_admins_election_result, only: [:show, :edit, :update, :destroy]
 
   # GET /admins/election_results
