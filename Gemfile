@@ -57,3 +57,5 @@ gem 'devise_token_auth'
 gem 'omniauth'
 gem 'will_paginate'
 gem 'active_model_serializers'
+
+gem 'datagrid'

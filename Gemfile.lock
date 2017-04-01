@@ -57,6 +57,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    datagrid (1.5.3)
+      rails (>= 4.0)
     debug_inspector (0.0.2)
     devise (4.2.0)
       bcrypt (~> 3.0)
@@ -192,6 +194,7 @@ DEPENDENCIES
   active_model_serializers
   byebug
   coffee-rails (~> 4.2)
+  datagrid
   devise_token_auth
   figaro
   jbuilder (~> 2.5)

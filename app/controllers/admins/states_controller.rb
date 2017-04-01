@@ -1,15 +1,20 @@
 require 'csv'
 
 class Admins::StatesController < ApplicationController
+  def index
+    @grid = StatesGrid.new(params[:states_grid]) do |scope|
+      scope.page(params[:page]).per_page(10)
+    end
+  end
   before_action :authenticate_admin!
   before_action :set_admins_state, only: [:show, :edit, :update, :destroy]
 
   # GET /admins/states
   # GET /admins/states.json
-  def index
-    Rails.logger.debug "NANCY: params:controller: #{params[:controller]}"
-    @admins_states = Admins::State.all.paginate(page: params[:page], per_page: 20)
-  end
+#  def index
+#    Rails.logger.debug "NANCY: params:controller: #{params[:controller]}"
+#    @admins_states = Admins::State.all.paginate(page: params[:page], per_page: 20)
+#  end
 
   # GET /admins/states/1
   # GET /admins/states/1.json
