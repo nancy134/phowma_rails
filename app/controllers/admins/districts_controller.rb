@@ -4,7 +4,7 @@ class Admins::DistrictsController < ApplicationController
   # GET /admins/districts
   # GET /admins/districts.json
   def index
-    @admins_districts = Admins::District.all
+    @admins_districts = Admins::District.all.paginate(page: params[:page], per_page: 15)
   end
 
   # GET /admins/districts/1

@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Admins Districts</h1>
-
 <table>
   <thead>
     <tr>
@@ -15,7 +14,7 @@
     <% @admins_districts.each do |admins_district| %>
       <tr>
         <td><%= admins_district.name %></td>
-        <td><%= admins_district.state_id %></td>
+        <td><%= admins_district.state.name %></td>
         <td><%= link_to 'Show', admins_district %></td>
         <td><%= link_to 'Edit', edit_admins_district_path(admins_district) %></td>
         <td><%= link_to 'Destroy', admins_district, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -23,7 +22,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @admins_districts %>
 <br>
 
 <%= form_tag import_admins_districts_path, multipart: true do %>
