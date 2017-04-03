@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   namespace :admins do
-    resources :districts
+    resources :districts do
+      collection {post :import}
+    end
   end
   namespace :admins do
     resources :states do

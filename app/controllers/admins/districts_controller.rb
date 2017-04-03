@@ -61,6 +61,11 @@ class Admins::DistrictsController < ApplicationController
     end
   end
 
+  def import
+    Admins::District.import(params[:file])
+    redirect_to action: "index"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admins_district

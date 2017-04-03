@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= f.label :state_id %>
-    <%= f.number_field :state_id %>
+    <%= collection_select(:admins_district, :state_id, Admins::State.all, :id, :name) %>
   </div>
 
   <div class="actions">
