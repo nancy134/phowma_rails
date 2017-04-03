@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Admins Elections</h1>
 
 <table>
@@ -7,6 +5,7 @@
     <tr>
       <th>Position</th>
       <th>Year</th>
+      <th>Date</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +15,7 @@
       <tr>
         <td><%= admins_election.position %></td>
         <td><%= admins_election.year %></td>
+        <td><%= admins_election.date %></td>
         <td><%= link_to 'Show', admins_election %></td>
         <td><%= link_to 'Edit', edit_admins_election_path(admins_election) %></td>
         <td><%= link_to 'Destroy', admins_election, method: :delete, data: { confirm: 'Are you sure?' } %></td>

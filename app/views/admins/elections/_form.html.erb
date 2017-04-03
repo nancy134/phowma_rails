@@ -12,6 +12,7 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :position %>
     <%= f.select(:position, Admins::Election.positions.keys.map {|position| [position.titleize, position]}) %>
   </div>
 
@@ -19,6 +20,12 @@
     <%= f.label :year %>
     <%= f.number_field :year %>
   </div>
+
+  <div class="field">
+    <%= f.label :date %>
+<%= f.date_select :date, {order: [:month, :day, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {required: true} %>
+  </div>
+
 
   <div class="actions">
     <%= f.submit %>
