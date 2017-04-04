@@ -1,6 +1,10 @@
 class Admins::Politician < ApplicationRecord
+
   require 'csv'
+
   belongs_to :state, class_name: 'Admins::State'
+  belongs_to :district, class_name: 'Admins::District'
+
   enum party: [:democrat, :republican, :independent]
   enum position: [:senator, :congressman, :governor]
 

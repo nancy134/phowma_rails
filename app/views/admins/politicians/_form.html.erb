@@ -1,7 +1,7 @@
 <%= form_for(admins_politician) do |f| %>
   <% if admins_politician.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(admins_politician.errors.count, "error") %> prohibited this admins_politician from being saved:</h2>
+      <p><%= pluralize(admins_politician.errors.count, "error") %> prohibited this admins_politician from being saved:</p>
 
       <ul>
       <% admins_politician.errors.full_messages.each do |message| %>
@@ -31,6 +31,10 @@
     <%= collection_select(:admins_politician, :state_id, Admins::State.all, :id, :name) %>
   </div>
 
+  <div>
+    <%= f.label :district %>
+    <%= collection_select(:admins_politician, :district_id, @admins_districts, :id, :name) %>
+  </div>
   <div>
     <%= f.label :party %>
     <%= f.select(:party, Admins::Politician.parties.keys.map {|party| [party.titleize, party]}) %>
