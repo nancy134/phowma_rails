@@ -5,6 +5,7 @@ class Admins::State < ApplicationRecord
   has_many :area_codes, class_name: 'Admins::AreaCode'
   has_many :election_results, class_name: 'Admins::ElectionResult'
   has_many :districts, class_name: 'Admins::District'
+  has_many :elections, class_name: 'Admins::Election'
 
   def self.import(file)
     CSV.foreach(file.path, headers: true, :row_sep => :auto) do |row|

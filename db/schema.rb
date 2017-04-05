@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404000338) do
+ActiveRecord::Schema.define(version: 20170404174530) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -70,9 +70,13 @@ ActiveRecord::Schema.define(version: 20170404000338) do
   create_table "admins_elections", force: :cascade do |t|
     t.integer  "position"
     t.integer  "year"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.date     "date"
+    t.integer  "state_id"
+    t.integer  "district_id"
+    t.index ["district_id"], name: "index_admins_elections_on_district_id"
+    t.index ["state_id"], name: "index_admins_elections_on_state_id"
   end
 
   create_table "admins_politicians", force: :cascade do |t|

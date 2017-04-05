@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       resources :states, only: [:index]
       resources :area_codes, only: [:index]
       resources :elections, only: [:index]
+      resources :districts, only: [:index]
       mount_devise_token_auth_for 'User', at: 'auth'
       mount_devise_token_auth_for 'Admin', at: 'admin_auth', :skip => [:registrations]
     end

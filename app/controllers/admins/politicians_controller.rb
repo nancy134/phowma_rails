@@ -16,6 +16,7 @@ class Admins::PoliticiansController < ApplicationController
   # GET /admins/politicians/new
   def new
     @admins_politician = Admins::Politician.new
+    @admins_districts = Admins::District.all
   end
 
   # GET /admins/politicians/1/edit
