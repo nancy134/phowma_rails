@@ -32,5 +32,6 @@ class Admins::Politician < ApplicationRecord
       end
     end
   end
+
 end
 

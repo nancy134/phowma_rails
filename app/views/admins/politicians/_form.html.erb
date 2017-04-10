@@ -1,4 +1,4 @@
-<%= form_for(admins_politician) do |f| %>
+<%= form_for @admins_politician, :html => {:class => "form-horizontal center"} do |f| %>
   <% if admins_politician.errors.any? %>
     <div id="error_explanation">
       <p><%= pluralize(admins_politician.errors.count, "error") %> prohibited this admins_politician from being saved:</p>
@@ -11,42 +11,47 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
+  <div class="form-group">
+    <%= f.label :first_name, class: "col-md-2 control-label" %> 
+    <div class="col-md-8">
+      <%= f.text_field :first_name, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
+  <div class="form-group">
+    <%= f.label :last_name, class: "col-md-2 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :last_name, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <div>
+      <%= f.label :position , class: "col-md-2 control-label" %>
+      <div class="col-md-2">
+        <%= f.select(:position, Admins::Politician.positions.keys.map {|position| [position.titleize, position]}, {}, {class: 'form-control'}) %>
+      </div>
+      <%= f.label :party, class: "col-md-2 control-label" %>
+      <div class="col-md-2">
+        <%= f.select(:party, Admins::Politician.parties.keys.map {|party| [party.titleize, party]}, {}, {class: 'form-control'}) %>
+      </div>
+
+    </div>
   </div>
 
-  <div>
-    <%= f.label :state %>
-    <%= collection_select(:admins_politician, :state_id, Admins::State.all, :id, :name) %>
+  <div class="form-group">
+    <%= f.label :state, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= collection_select(:admins_politician, :state_id, Admins::State.all, :id, :name, {}, {:class=>'form-control'}) %>
+    </div>
+    <%= f.label :district, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= collection_select(:admins_politician, :district_id, @admins_districts, :id, :name, {}, {:class=>'form-control'}) %>
+    </div>
   </div>
-
-  <div>
-    <%= f.label :district %>
-    <%= collection_select(:admins_politician, :district_id, @admins_districts, :id, :name) %>
-
-  </div>
-  <div>
-    <%= f.label :party %>
-    <%= f.select(:party, Admins::Politician.parties.keys.map {|party| [party.titleize, party]}) %>
-  </div>
-
-  <div>
-    <%= f.label :position %>
-    <%= f.select(:position, Admins::Politician.positions.keys.map {|position| [position.titleize, position]}) %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-2">
+      <%= f.submit class: "btn btn-default btn-primary" %>
+    </div>
   </div>
 <% end %>

@@ -1,11 +1,14 @@
 class Admins::PoliticiansController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   before_action :authenticate_admin!
   before_action :set_admins_politician, only: [:show, :edit, :update, :destroy]
 
   # GET /admins/politicians
   # GET /admins/politicians.json
   def index
-    @admins_politicians = Admins::Politician.all.paginate(page: params[:page], per_page: 20)
+    @search = Admins::Politician.ransack(params[:q])
+    @admins_politicians = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admins/politicians/1
@@ -71,6 +74,15 @@ class Admins::PoliticiansController < ApplicationController
   end
 
   private
+
+    def sort_column
+      Admins::Politician.column_names.include?(params[:sort]) ? params[:sort] : "first_name"
+    end
+  
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_admins_politician
       @admins_politician = Admins::Politician.find(params[:id])

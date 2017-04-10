@@ -1,5 +1,8 @@
-<p>New Admins Politician</p>
+<div class="page-header">
+<h2><%= link_to(admins_politicians_path) do %>
+<span class='glyphicon glyphicon-menu-left'></span>
+<% end %>New Politician</h2>
+</div>
 
 <%= render 'form', admins_politician: @admins_politician %>
 
-<%= link_to 'Back', admins_politicians_path %>

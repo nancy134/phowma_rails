@@ -1,0 +1,20 @@
+<%= search_form_for @search do |f| %>
+  <div class="field">
+    <%= f.label :first_name_cont, "First Name contains" %>
+    <%= f.text_field :first_name_cont %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name_cont, "Last name contains" %>
+    <%= f.text_field :last_name_cont %>
+  </div>
+  <div class="field">
+<%= f.select :position_eq, Admins::Politician.positions.to_a.map { |w| [w[0].humanize, w[1]] },{:include_blank => true} %>
+  </div>
+  <div>
+    <%= f.select :party_eq, Admins::Politician.parties.to_a.map { |w| [w[0].humanize, w[1]] },{:include_blank => true} %>
+  </div>
+  <div>
+    <%= f.select :state_id_eq, options_from_collection_for_select(Admins::State.all, "id", "name"), include_blank: true %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
