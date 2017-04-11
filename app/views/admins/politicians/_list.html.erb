@@ -11,6 +11,7 @@
   </thead>
 
   <tbody>
+    <%= render 'filter', search:@search %>
     <% @admins_politicians.each do |admins_politician| %>
       <tr>
         <td><%= admins_politician.last_name %></td>
