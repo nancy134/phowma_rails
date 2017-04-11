@@ -1,5 +1,4 @@
 class Admins::PoliticiansController < ApplicationController
-  helper_method :sort_column, :sort_direction
 
   before_action :authenticate_admin!
   before_action :set_admins_politician, only: [:show, :edit, :update, :destroy]
@@ -74,14 +73,6 @@ class Admins::PoliticiansController < ApplicationController
   end
 
   private
-
-    def sort_column
-      Admins::Politician.column_names.include?(params[:sort]) ? params[:sort] : "first_name"
-    end
-  
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_admins_politician
