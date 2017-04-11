@@ -5,7 +5,8 @@ class Admins::AreaCodesController < ApplicationController
   # GET /admins/area_codes
   # GET /admins/area_codes.json
   def index
-    @admins_area_codes = Admins::AreaCode.all.paginate(page: params[:page], per_page: 20)
+    @search = Admins::AreaCode.ransack(params[:q])
+    @admins_area_codes = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admins/area_codes/1

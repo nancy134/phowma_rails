@@ -1,0 +1,24 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>State</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render 'filter', search:@search %>
+    <% @admins_area_codes.each do |admins_area_code| %>
+      <tr>
+        <td><%= admins_area_code.code %></td>
+        <td><%= admins_area_code.state.name %></td>
+        <td><%= link_to 'Show', admins_area_code %></td>
+        <td><%= link_to 'Edit', edit_admins_area_code_path(admins_area_code) %></td>
+        <td><%= link_to 'Destroy', admins_area_code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @admins_area_codes %>
+

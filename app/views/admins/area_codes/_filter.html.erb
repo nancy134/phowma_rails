@@ -1,0 +1,9 @@
+<%= search_form_for @search do |f| %>
+  <tr id="list_search" class="collapse">
+    <td><%= f.text_field :code_cont %></td>
+    <td><%= f.select :state_id_eq, options_from_collection_for_select(Admins::State.all, "id", "name"), include_blank: true %></td>
+    <td><%= f.submit "Search" %></td>
+    <td></td>
+    <td></td>
+  </tr>
+<% end %>
