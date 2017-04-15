@@ -64,3 +64,5 @@ gem 'datagrid'
 gem 'bootstrap-sass'
 gem 'ransack'
 
+gem 'faraday'
+

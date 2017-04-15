@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :admins do
-    resources :districts do
-      collection {post :import}
-    end
-  end
-  namespace :admins do
+    resources :zips
     resources :states do
       collection {post :import}
     end
@@ -17,6 +13,9 @@ Rails.application.routes.draw do
     end
     resources :elections
     resources :election_results do
+      collection {post :import}
+    end
+    resources :districts do
       collection {post :import}
     end
   end
@@ -34,7 +33,11 @@ Rails.application.routes.draw do
       resources :states, only: [:index]
       resources :area_codes, only: [:index]
       resources :elections, only: [:index]
-      resources :districts, only: [:index]
+      resources :districts do
+        collection do 
+          get :find
+        end
+      end
       mount_devise_token_auth_for 'User', at: 'auth'
       mount_devise_token_auth_for 'Admin', at: 'admin_auth', :skip => [:registrations]
     end

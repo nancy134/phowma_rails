@@ -1,0 +1,2 @@
+module Admins::ZipsHelper
+end
