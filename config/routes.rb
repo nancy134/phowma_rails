@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       resources :districts do
         collection do 
           get :find
+          get :test
         end
       end
       mount_devise_token_auth_for 'User', at: 'auth'

@@ -25,7 +25,6 @@ module ApplicationHelper
     end
   end
   def bootstrap_class_for flash_type
-    Rails.logger.debug "NANCY: flash_type: #{flash_type}"
     case flash_type
       when "success"
         "alert-success"

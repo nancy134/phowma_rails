@@ -1,4 +1,5 @@
 class Admins::District < ApplicationRecord
+  has_and_belongs_to_many :zips, class_name: 'Admins::Zip', join_table: 'admins_districts_zips'
 
   require 'csv'
 

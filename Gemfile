@@ -65,4 +65,6 @@ gem 'bootstrap-sass'
 gem 'ransack'
 
 gem 'faraday'
+gem 'faraday_middleware'
+gem 'faraday-detailed_logger'
 
