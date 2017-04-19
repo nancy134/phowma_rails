@@ -19,6 +19,7 @@ class Admins::DistrictsController < ApplicationController
 
   # GET /admins/districts/1/edit
   def edit
+    session[:return_to] ||= request.referer
   end
 
   # POST /admins/districts
@@ -42,7 +43,7 @@ class Admins::DistrictsController < ApplicationController
   def update
     respond_to do |format|
       if @admins_district.update(admins_district_params)
-        format.html { redirect_to @admins_district, notice: 'District was successfully updated.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'District was successfully updated.' }
         format.json { render :show, status: :ok, location: @admins_district }
       else
         format.html { render :edit }
