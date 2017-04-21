@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :users do
+    resources :contacts
+  end
   namespace :admins do
     resources :zips
     resources :states do
@@ -33,6 +36,7 @@ Rails.application.routes.draw do
       resources :states, only: [:index]
       resources :area_codes, only: [:index]
       resources :elections, only: [:index]
+      resources :contacts, only: [:index]
       resources :districts do
         collection do 
           get :find

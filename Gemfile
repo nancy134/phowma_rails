@@ -57,7 +57,7 @@ gem 'figaro'
 gem 'devise_token_auth'
 gem 'omniauth'
 gem 'will_paginate'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '0.10.0.rc4'
 
 gem 'datagrid'
 
