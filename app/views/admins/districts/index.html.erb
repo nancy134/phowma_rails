@@ -1,29 +1,8 @@
-<h3>Districts</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>State</th>
-      <th>Number</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @admins_districts.each do |admins_district| %>
-      <tr>
-        <td><%= admins_district.name %></td>
-        <td><%= admins_district.state.name %></td>
-        <td><%= admins_district.number %></td>
-        <td><%= link_to 'Show', admins_district %></td>
-        <td><%= link_to 'Edit', edit_admins_district_path(admins_district) %></td>
-        <td><%= link_to 'Destroy', admins_district, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @admins_districts %>
+<div class="page-header">
+  <h2>Districts</h2>
+</div>
 <br>
+<%= render 'list', admins_district: @admins_district %>
 
 <%= form_tag import_admins_districts_path, multipart: true do %>
   <%= file_field_tag :file %>
