@@ -14,7 +14,6 @@ class Admins::ElectionResult < ApplicationRecord
       else
         state = Admins::State.where(name: election_result_hash["state"]).first
       end
-      Rails.logger.debug("NANCY: state: #{state.id}")
       if (state)
         election_result_hash["state_id"] = state.id
       else
@@ -28,14 +27,11 @@ class Admins::ElectionResult < ApplicationRecord
       else
         return
       end
-      Rails.logger.debug("NANCY: election: #{election.id}")
 
       election_result_hash.delete("year")
       election_result_hash.delete("position")
       election_result = Admins::ElectionResult.where(id: election_result_hash["id"])
 
-      Rails.logger.debug("NANCY: election_result: #{election_result}")
-      Rails.logger.debug("NANCY: election_result_hash: #{election_result_hash}")
 
       if (election_result.count == 1)
         election_result.first.update_attributes(election_result_hash)

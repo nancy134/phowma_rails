@@ -36,11 +36,13 @@ Rails.application.routes.draw do
       resources :states, only: [:index]
       resources :area_codes, only: [:index]
       resources :elections, only: [:index]
+      resources :politicians, only: [:index]
       #resources :contacts, only: [:index, :new, :all]
       resources :contacts do
         collection do
           post :all
           get :check
+          get :details
         end
       end
       resources :districts do

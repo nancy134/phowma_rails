@@ -15,7 +15,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
       state = Admins::State.where(abbreviation: params[:state]).first
       districts = Admins::District.where(state_id: state.id)
       if (districts.length == 1)
-        output = {:district => districts[0].name}
+        output = {:district => districts[0].name, :state => state.abbreviation}
         render json: output and return
       end
     end

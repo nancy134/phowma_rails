@@ -1,24 +1,28 @@
 class Api::V1::ContactsController < Api::V1::BaseController
   include DeviseTokenAuth::Concerns::SetUserByToken
+  before_filter :set_response_headers
   before_action :authenticate_user!
   def index
-    contacts = Users::Contact.all
+    contacts = paginate Users::Contact.all, per_page: 10
+
     render json: contacts, each_serializer: Api::V1::ContactSerializer
   end
   def new
     render json: {:user_id => current_user.id, :phone_id => params[:phone_id]} 
   end
+  def details
+    state = Admins::State.where(abbreviation: params[:state]).first
+    if (state)
+      politicians = Admins::Politician.where(state_id: state.id)
+    end
+    render json: politicians, each_serializer: Api::V1::PoliticianSerializer 
+  end
   def all
-    if (params[:body])
-      a = JSON.parse(params[:body])
-      Rails.logger.debug "NANCY user_id: #{current_user.id}"
-      len = a["ids"].length-1
-      Rails.logger.debug "NANCY len: #{len}"
+    if (params["ids"])
+      len = params["ids"].length-1
       for i in 0..len
-        Rails.logger.debug "NANCY: phone_id #{a["ids"][i]}"
-        contact_hash = {user_id: current_user.id, phone_id: a["ids"][i]}
-        Rails.logger.debug "NANCY: contact_hash: #{contact_hash.to_json}"
-        contact = Users::Contact.where(phone_id: a["ids"][i])
+        contact_hash = {user_id: current_user.id, phone_id: params["ids"][i]}
+        contact = Users::Contact.where(phone_id: params["ids"][i])
         if (contact.empty?)
           @users_contact = Users::Contact.new(contact_hash)
           @users_contact.save
@@ -29,6 +33,14 @@ class Api::V1::ContactsController < Api::V1::BaseController
     render json: {:test => "ok"}
   end
   def check
-    render json: {:status => "ok"} 
+    render json: {:status => "ok", :email => current_user.email} 
+  end
+  def set_response_headers
+    if user_signed_in? and response.headers[DeviseTokenAuth.headers_names[:"access-token"]].nil?
+      auth_header = {}
+      auth_header[DeviseTokenAuth.headers_names[:"access-token"]] = ' '
+      auth_header[DeviseTokenAuth.headers_names[:"expiry"]] = ' '
+      response.headers.merge!(auth_header)
+    end
   end
 end

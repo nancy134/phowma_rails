@@ -42,6 +42,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    api-pagination (4.5.2)
     arel (7.1.4)
     autoprefixer-rails (6.7.7.2)
       execjs
@@ -96,7 +97,7 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    libv8 (3.16.14.19-x86_64-linux)
+    libv8 (3.16.14.19)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -211,6 +212,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (= 0.10.0.rc4)
+  api-pagination
   bootstrap-sass
   byebug
   coffee-rails (~> 4.2)

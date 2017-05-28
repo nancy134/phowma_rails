@@ -34,7 +34,6 @@ module DeviseHelper
   end
   def flash_messages?
     if @flash_alerts.length > 0
-      Rails.logger.debug "NANCY: flash_alerts[0]: #{@flash_alerts[0]}"  
       return !@flash_alerts[0].empty?
     end
   end
