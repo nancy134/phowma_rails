@@ -5,5 +5,10 @@
   <%= @admins_zip.code %>
 </p>
 
+<ul>
+  <% @admins_zip.districts.each do |district| %>
+    <li><%= district.state.name %> <%= district.name %></li>
+  <% end %>
+</ul>
 <%= link_to 'Edit', edit_admins_zip_path(@admins_zip) %> |
 <%= link_to 'Back', admins_zips_path %>

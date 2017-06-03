@@ -29,8 +29,11 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                 url = 'https://congress.api.sunlightfoundation.com'
                 conn = Faraday.new(:url => url) 
                 response = conn.get '/districts/locate', { :apikey => '123', :zip => params[:zip] }
-                if (response.success?)
-                    repo_info = JSON.parse(response.body)
+                repo_info = {:count => 0}
+                if (response.success?) 
+                  repo_info = JSON.parse(response.body)
+                end
+                if (repo_info["count"] > 0)
                     zip_record = Admins::Zip.new(code: params[:zip])
                     repo_info['results'].each do |item|
                         state_record = Admins::State.where(abbreviation: item['state']).first
@@ -38,16 +41,20 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                         if (district_record)
                             zip_record.districts << district_record;
                         else
-                            Rails.logger.debug "NANCY: district not found in db"
+                            output = {:message => 'District not found in the database'}
                         end
                     end
                     zip_record.save
                     if (zip_record.districts.length > 1)
                         output = {:message => 'Zip code cannot be used to determine district because there are multiple districts for this zip code.'}
                         render json: output and return
+                    elsif (zip_record.districts.length == 1)
+                        output = {:district => zip_record.districts[0].number, :state => zip_record.districts[0].state.abbreviation}
                     else
-                        output = {:district => zip_record.districts[0].number}
+                        output = {:message => 'Zip code may not be valid.  It was not found in the congressional database[1]'}
                     end
+                else
+                    output = {:message => 'Zip code may not be valid.  It was not found in the congressional database[2]'}
                 end
             else
                 if (zips[0].districts.length == 1)
@@ -87,12 +94,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
             output = {:message => 'Cannot determine district with just state information as this state has multiple districts'}
             render json: output and return
         end
-    
-        if response
-            render json: response.body
-        else
-            render json:  "{}" 
-        end
+        render json: output 
     end
 
   def test

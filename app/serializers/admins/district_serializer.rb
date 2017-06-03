@@ -1,3 +1,3 @@
 class Admins::DistrictSerializer < ActiveModel::Serializer
-  attributes :id, :name, :state_id
+  attributes :id, :name, :state_id, :number
 end
