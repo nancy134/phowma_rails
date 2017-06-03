@@ -47,9 +47,9 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                     zip_record.save
                     if (zip_record.districts.length > 1)
                         output = {:message => 'Zip code cannot be used to determine district because there are multiple districts for this zip code.'}
-                        render json: output and return
                     elsif (zip_record.districts.length == 1)
                         output = {:district => zip_record.districts[0].number, :state => zip_record.districts[0].state.abbreviation}
+                        render json: output and return
                     else
                         output = {:message => 'Zip code may not be valid.  It was not found in the congressional database[1]'}
                     end
@@ -58,11 +58,11 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                 end
             else
                 if (zips[0].districts.length == 1)
-                    output = {:district => zips[0].districts[0].number}
+                    output = {:district => zips[0].districts[0].number, :state => zips[0].districts[0].state.abbreviation}
+                    render json: output and return
                 else
                     output = {:message => "Zip code cannot be used to determine district because there are multiple districts for this code"}
                 end  
-                render json: output and return
             end
         end
     
@@ -93,8 +93,9 @@ class Api::V1::DistrictsController < Api::V1::BaseController
             end 
             output = {:message => 'Cannot determine district with just state information as this state has multiple districts'}
             render json: output and return
+        else
+            render json: output and return
         end
-        render json: output 
     end
 
   def test
