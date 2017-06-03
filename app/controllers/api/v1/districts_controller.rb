@@ -81,7 +81,12 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                 if (repo_info['divisions'].keys.first)
                     splits = repo_info['divisions'].keys.first.split(':')
                     if (splits.length == 4)
-                        render json: { :district => splits[3]} and return
+                        district_record = Admins::District.where(number: splits[3])
+                        state = ""
+                        if (district_record) 
+                            state = district_record.state.abbreviation
+                        end
+                        render json: { :district => splits[3], :state => state} and return
                     else
                         render json: { :message => 'Could not find district for this address'} and return
                     end
