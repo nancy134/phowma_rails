@@ -13,4 +13,11 @@
 
 <%= render 'list', admins_politician: @admins_politician %>
 
+<br>
+<%= form_tag import_admins_politicians_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+
+
 
