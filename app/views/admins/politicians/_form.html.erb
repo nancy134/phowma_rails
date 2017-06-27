@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+  <%= admins_politician.id %>
   <div class="form-group">
     <%= f.label :first_name, class: "col-md-2 control-label" %> 
     <div class="col-md-8">
@@ -53,6 +53,11 @@
     <div class="col-md-2">
       <%= collection_select(:admins_politician, :district_id, @admins_districts, :id, :name, {}, {:class=>'form-control'}) %>
     </div>
+  </div>
+  <div class="field">
+    <%= f.label :avatar %>
+    <%= f.file_field  :avatar %>
+    <%= image_tag @admins_politician.avatar.url(:thumb) %>
   </div>
   <div class="form-group">
     <div class="col-md-offset-2 col-md-2">

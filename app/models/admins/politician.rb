@@ -5,7 +5,10 @@ class Admins::Politician < ApplicationRecord
   belongs_to :state, class_name: 'Admins::State'
   belongs_to :district, class_name: 'Admins::District'
 
-  enum party: [:democrat, :republican, :independent]
+  has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100>"}, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+
+  enum party: [:democrat, :republican, :independent, :vacant]
   enum position: [:senator, :congressman, :governor]
 
   def self.import(file)
@@ -23,6 +26,15 @@ class Admins::Politician < ApplicationRecord
         return
       end
       politician_hash.delete("state")
+
+      if (politician_hash["district"])
+        district = Admins::District.where(number: politician_hash["district"],state_id: state.id).first
+        if (district)
+          politician_hash["district_id"] = district.id
+        end
+        politician_hash.delete("district")
+      end
+
       politician = Admins::Politician.where(id: politician_hash["id"])
 
       if politician.count == 1

@@ -17,6 +17,9 @@ class Api::V1::ContactsController < Api::V1::BaseController
     end
     render json: politicians, each_serializer: Api::V1::PoliticianSerializer 
   end
+  def test
+    Rails.logger.debug "NANCY: params: #{params}"
+  end
   def all
     if (params["ids"])
       len = params["ids"].length-1

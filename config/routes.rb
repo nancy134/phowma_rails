@@ -43,6 +43,7 @@ Rails.application.routes.draw do
           post :all
           get :check
           get :details
+          post :test
         end
       end
       resources :districts do

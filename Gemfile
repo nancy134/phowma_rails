@@ -69,3 +69,5 @@ gem 'faraday_middleware'
 gem 'faraday-detailed_logger'
 gem 'api-pagination'
 
+gem "paperclip"
+gem "aws-sdk"
