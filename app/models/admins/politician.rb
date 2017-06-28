@@ -45,5 +45,9 @@ class Admins::Politician < ApplicationRecord
     end
   end
 
+  def avatar_thumb
+    "http:" + avatar.url(:thumb)
+  end
+
 end
 
