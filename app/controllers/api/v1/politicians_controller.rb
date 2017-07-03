@@ -11,7 +11,10 @@ class Api::V1::PoliticiansController < Api::V1::BaseController
       end
       render json: politicians, each_serializer: Api::V1::PoliticianSerializer
     else 
-      politicians = Admins::Politician.all
+      #politicians = Admins::Politician.all
+     # politicians = Admins::Politician.includes(:admins_state).order("admins_state.name desc")
+      #politicians = Admins::Politician.find(:all, :joins => :state, :order => 'admins_states.name')
+      politicians = Admins::Politician.joins(:state).order("admins_states.name")
       paginate json: politicians, each_serializer: Api::V1::PoliticianSerializer
     end
   end

@@ -7,9 +7,10 @@ class Api::V1::StatesController < Api::V1::BaseController
       states = Admins::State.where(abbreviation: params[:abbreviation])
       render json: states, each_serializer: Api::V1::StateAllSerializer
     else   
-      states = Admins::State.all
-      sorted_states = states.sort_by { |obj| obj.total }
-      render json: sorted_states, each_serializer: Api::V1::StateSerializer
+      #states = Admins::State.all
+      states = Admins::State.order(:name)
+      #sorted_states = states.sort_by { |obj| obj.name }
+      paginate json: states, each_serializer: Api::V1::StateAllSerializer
     end
   end
 end

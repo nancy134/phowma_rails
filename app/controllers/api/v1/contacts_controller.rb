@@ -18,7 +18,16 @@ class Api::V1::ContactsController < Api::V1::BaseController
     render json: politicians, each_serializer: Api::V1::PoliticianSerializer 
   end
   def test
-    Rails.logger.debug "NANCY: params: #{params}"
+    Rails.logger.debug "NANCY: params[phone_id]: #{params[:phone_id]}"
+    render json: {status: "ok"}
+  end
+  def create
+    contact_hash = {user_id: current_user.id, phone_id: params["phone_id"]}
+    contact = Users::Contact.where({user_id: current_user.id, phone_id: params["phone_id"]})
+    if (contact.empty?)
+      @users_contact = Users::Contact.new(contact_hash)
+      @users_contact.save
+    end
   end
   def all
     if (params["ids"])
