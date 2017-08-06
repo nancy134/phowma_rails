@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170618154403) do
+ActiveRecord::Schema.define(version: 20170705141353) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20170618154403) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "attribution"
     t.index ["district_id"], name: "index_admins_politicians_on_district_id"
     t.index ["state_id"], name: "index_admins_politicians_on_state_id"
   end

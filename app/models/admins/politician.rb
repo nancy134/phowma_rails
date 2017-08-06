@@ -5,7 +5,7 @@ class Admins::Politician < ApplicationRecord
   belongs_to :state, class_name: 'Admins::State'
   belongs_to :district, class_name: 'Admins::District'
 
-  has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100>"}, default_url: "/images/:style/missing.png"
+  has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100#"}, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
   enum party: [:democrat, :republican, :independent, :vacant]
@@ -47,6 +47,9 @@ class Admins::Politician < ApplicationRecord
 
   def avatar_thumb
     "http:" + avatar.url(:thumb)
+  end
+  def avatar_medium
+    "http:" + avatar.url(:medium)
   end
 
 end

@@ -6,11 +6,13 @@ class Api::V1::StatesController < Api::V1::BaseController
     elsif (params[:abbreviation])
       states = Admins::State.where(abbreviation: params[:abbreviation])
       render json: states, each_serializer: Api::V1::StateAllSerializer
-    else   
-      #states = Admins::State.all
+    else 
       states = Admins::State.order(:name)
-      #sorted_states = states.sort_by { |obj| obj.name }
-      paginate json: states, each_serializer: Api::V1::StateAllSerializer
+      if (params[:type] == 'min')
+        render json: states, each_serializer: Api::V1::StateMinSerializer
+      else
+        paginate json: states, each_serializer: Api::V1::StateAllSerializer
+      end
     end
   end
 end
