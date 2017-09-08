@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       resources :area_codes, only: [:index]
       resources :elections, only: [:index]
       resources :politicians, only: [:index]
+      resources :stores, only: [:index]
       #resources :contacts, only: [:index, :new, :all]
       resources :contacts do
         collection do
