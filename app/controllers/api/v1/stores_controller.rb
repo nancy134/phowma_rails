@@ -9,9 +9,14 @@ class Api::V1::StoresController < Api::V1::BaseController
     Rails.logger.debug "NANCY: x-access-token: #{request.headers['X-Access-Token']}"
     #render json: {status: "ok", authorization: request.headers['Authorization'],devicetoken: request.headers['X-Device-Token'] }
     #return;
-
-    begin
+    Rails.logger.debug "NANCY: staging: #{params[:staging]}" 
+    if (params[:staging] == "1")
       url = 'http://ve-api-staging.herokuapp.com'
+    else
+      url = 'http://api.vexapps.com'
+    end
+    Rails.logger.debug "NANCY: url: #{url}"
+    begin
       conn = Faraday.new(:url => url)
       response = conn.get '/api/stores', {:page => page}, {'Authorization' => request.headers['Authorization'], 'X-Device-Token' => request.headers['X-Device-Token'], 'X-Access-Token' => request.headers['X-Access-Token']}
 
