@@ -71,3 +71,8 @@ gem 'api-pagination'
 
 gem "paperclip"
 gem "aws-sdk"
+
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
+
