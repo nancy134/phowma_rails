@@ -76,3 +76,5 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
 
+gem 'rack-cors'
+
