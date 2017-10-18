@@ -3,8 +3,8 @@
   <tr id="list_search" class="collapse in">
     <td><%= f.text_field :first_name_cont %></td>
     <td><%= f.text_field :last_name_cont %></td>
-    <td><%= f.select :party_eq, Admins::Politician.parties.to_a.map { |w| [w[0].
-humanize, w[1]] },{:include_blank => true} %></td>
+    <td><%= f.select :party_in, Admins::Politician.parties.to_a.map { |w| [w[0].
+humanize, w[1]] },{:include_blank => true},{:multiple => true} %></td>
     <td><%= f.select :position_eq, Admins::Politician.positions.to_a.map { |w| [w[0].humanize, w[1]] },{:include_blank => true} %></td>
     <td><%= f.select :state_id_eq, options_from_collection_for_select(Admins::State.all, "id", "name"), include_blank: true %></td>
     <td><%= f.submit "Search" %></td>
