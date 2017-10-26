@@ -2,18 +2,21 @@
 # All this logic will automatically be available in application.js.
 $ ->
   $('#admins_politician_state_id').on "change", ->
-    console.log('The option with value ' + $(this).val())
+    console.log("got here");
     $.ajax
       url: "/api/v1/districts?state_id="+$(this).val()
       type: "GET"
       dataType: "json"
       success: (data) ->
-        console.log("data[0].name: "+data[0].name);
-        console.log("data.length: "+data.length);
         $el = $('#admins_politician_district_id');
         $el.empty();
+        $el.append $('<option></option>').attr('value', 0).text('Select district')
         for i in [0...data.length - 1] by 1
           $el.append $('<option></option>').attr('value', data[i].id).text(data[i].name)
 
       error: ->
         console.log("NANCY: Error")
+
+  $('#admins_politician_position').on "change", ->
+    console.log("Position change");
+
