@@ -21,7 +21,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
             end
             districts = Admins::District.where(state_id: state.id)
             if (districts.length == 1)
-                output = {:district => districts[0].name, :state => state.abbreviation}
+                output = {:id => districts[0].id, :district => districts[0].name, :state => state.abbreviation}
                 render json: output and return
             end
         end
@@ -52,7 +52,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                     if (zip_record.districts.length > 1)
                         output = {:message => 'Zip code cannot be used to determine district because there are multiple districts for this zip code.'}
                     elsif (zip_record.districts.length == 1)
-                        output = {:district => zip_record.districts[0].number, :state => zip_record.districts[0].state.abbreviation}
+                        output = {:id => zip_record.districts[0].id, :district => zip_record.districts[0].number, :state => zip_record.districts[0].state.abbreviation}
                         render json: output and return
                     else
                         output = {:message => 'Zip code may not be valid.  It was not found in the congressional database[1]'}
@@ -62,7 +62,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                 end
             else
                 if (zips[0].districts.length == 1)
-                    output = {:district => zips[0].districts[0].number, :state => zips[0].districts[0].state.abbreviation}
+                    output = {:id => zips[0].districts[0].id, :district => zips[0].districts[0].number, :state => zips[0].districts[0].state.abbreviation}
                     render json: output and return
                 else
                     output = {:message => "Zip code cannot be used to determine district because there are multiple districts for this code"}
@@ -95,7 +95,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                         if (district_record) 
                             state = district_record.state.abbreviation
                         end
-                        render json: { :district => splits[3], :state => state} and return
+                        render json: {:id => district_record.id, :district => splits[3], :state => state} and return
                     else
                         render json: { :message => 'Could not find district for this address[1]'} and return
                     end

@@ -12,6 +12,9 @@ class Api::V1::PoliticiansController < Api::V1::BaseController
         politicians = Admins::Politician.where(state_id: state.id)
       end
       render json: politicians, each_serializer: Api::V1::PoliticianSerializer
+    elsif (params[:district])
+      politicians = Admins::Politician.joins(:district).merge(Admins::District.where(id: params[:district]))
+      paginate json: politicians, each_serializer: Api::V1::PoliticianSerializer
     else
       rpoliticians = Admins::Politician.ransack(params[:q])
       politicians = rpoliticians.result.joins(:state).order("admins_states.name")
