@@ -25,6 +25,7 @@
       <ul class="nav navbar-nav">
         <li class="<%= 'active' if params[:controller] == 'admins/welcome' %>"> <%= link_to "Welcome", admins_welcome_index_path %> </li>
         <li class="<%= 'active' if params[:controller] == 'admins/states' %>"> <%= link_to "States", admins_states_path %> </li>
+        <li class="<%= 'active' if params[:controller] == 'admins/districts' %>"> <%= link_to "Districts", admins_districts_path %> </li>
         <li class="<%= 'active' if params[:controller] == 'admins/politicians' %>"> <%= link_to "Politicians", admins_politicians_path %> </li>
         <li class="<%= 'active' if params[:controller] == 'admins/elections' %>"> <%= link_to "Elections", admins_elections_path %> </li>
         <li class="<%= 'active' if params[:controller] == 'admins/election_results' %>"> <%= link_to "Results", admins_election_results_path %></li>

@@ -1,9 +1,20 @@
 <div class="page-header">
 <h2>States</h2>
 </div>
-<%= datagrid_form_for @grid, :method => :get, :url => admins_states_path %>
 
-<div class="table-response">
-<%= datagrid_table @grid, :order => false, :html => {class: "table"} %>
+<div class="row">
+  <div class="col-md-6">
+    <%= link_to 'New State', new_admins_state_path, {:class => "btn btn-primary"} %>
+  </div>
+  <div class="col-md-6">
+    <span class="pull-right"><button type="button" class="btn btn-link" data-toggle="collapse" data-target="#list_search">Search and Filter</button></span>
+  </div>
 </div>
-<%= will_paginate(@grid.assets) %>
+
+<%= render 'list', admins_state: @admins_state %>
+
+<br>
+<%= form_tag import_admins_states_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

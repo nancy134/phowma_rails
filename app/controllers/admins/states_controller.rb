@@ -2,9 +2,8 @@ require 'csv'
 
 class Admins::StatesController < ApplicationController
   def index
-    @grid = StatesGrid.new(params[:states_grid]) do |scope|
-      scope.page(params[:page]).per_page(10)
-    end
+    @search = Admins::State.ransack(params[:q])
+    @admins_states = @search.result.paginate(page: params[:page], per_page: 10)
   end
   before_action :authenticate_admin!
   before_action :set_admins_state, only: [:show, :edit, :update, :destroy]
