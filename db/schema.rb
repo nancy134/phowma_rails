@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170705141353) do
+ActiveRecord::Schema.define(version: 20171101191725) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20170705141353) do
     t.string   "abbreviation"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "registered"
   end
 
   create_table "admins_zips", force: :cascade do |t|
@@ -119,6 +120,13 @@ ActiveRecord::Schema.define(version: 20170705141353) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_admins_zips_on_code"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "title"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
