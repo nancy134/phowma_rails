@@ -80,3 +80,4 @@ gem 'rack-cors'
 
 gem 'twitter'
 gem 'koala'
+gem 'omniauth-facebook'

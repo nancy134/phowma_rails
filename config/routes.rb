@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
 
+  get 'omniauth/facebook/callback' => 'admins/socials#callback'
   namespace :users do
     resources :contacts
   end
   namespace :admins do
+    resources :socials, only: [:index] do
+      collection do 
+         get :connect
+         get :callback
+      end
+    end
     resources :zips
+    resources :users
     resources :states do
       collection {post :import}
     end
