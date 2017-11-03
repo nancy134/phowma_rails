@@ -78,3 +78,5 @@ gem 'capistrano-bundler'
 
 gem 'rack-cors'
 
+gem 'twitter'
+gem 'koala'

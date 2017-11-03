@@ -30,5 +30,15 @@
   <%= @admins_politician.state.name %>
 </p>
 
+<p>
+  <strong>Twitter:</strong>
+  <%= @admins_politician.twitter %>
+</p>
+
+<p>
+  <strong>Facebook</strong>
+  <%= @admins_politician.facebook %>
+</p>
+
 <%= link_to 'Edit', edit_admins_politician_path(@admins_politician) %> |
 <%= link_to 'Back', admins_politicians_path %>

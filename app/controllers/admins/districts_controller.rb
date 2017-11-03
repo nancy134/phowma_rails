@@ -1,4 +1,5 @@
 class Admins::DistrictsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_admins_district, only: [:show, :edit, :update, :destroy]
 
   # GET /admins/districts

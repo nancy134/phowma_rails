@@ -89,6 +89,6 @@ class Admins::PoliticiansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_politician_params
-      params.require(:admins_politician).permit(:name, :first_name, :last_name, :position, :party, :state_id, :district_id, :attribution, :avatar)
+      params.require(:admins_politician).permit(:name, :first_name, :last_name, :position, :party, :state_id, :district_id, :attribution, :avatar, :twitter, :facebook)
     end
 end
