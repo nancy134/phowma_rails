@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102214609) do
+ActiveRecord::Schema.define(version: 20171104141357) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -109,6 +109,12 @@ ActiveRecord::Schema.define(version: 20171102214609) do
     t.index ["state_id"], name: "index_admins_politicians_on_state_id"
   end
 
+  create_table "admins_settings", force: :cascade do |t|
+    t.string   "facebook_token"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "admins_states", force: :cascade do |t|
     t.string   "name"
     t.string   "abbreviation"
@@ -122,13 +128,6 @@ ActiveRecord::Schema.define(version: 20171102214609) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_admins_zips_on_code"
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.string   "title"
-    t.string   "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
