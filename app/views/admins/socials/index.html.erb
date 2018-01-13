@@ -1,4 +1,6 @@
 <h3>Facebook</h3>
+<% if @setting %>
 <p>Facebook token: </p><%= @setting.facebook_token %>
+<% end %>
 <br/>
 <%= link_to('Connect to Facebook', connect_admins_socials_path) %>
