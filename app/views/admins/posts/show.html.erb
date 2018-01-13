@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @admins_post.message %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @admins_post.image %>
+</p>
+
+<%= link_to 'Edit', edit_admins_post_path(@admins_post) %> |
+<%= link_to 'Back', admins_posts_path %>

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :admins do
+    resources :posts
+  end
   get 'omniauth/facebook/callback' => 'admins/socials#callback'
   namespace :users do
     resources :contacts

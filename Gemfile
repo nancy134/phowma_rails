@@ -79,5 +79,6 @@ gem 'capistrano-bundler'
 gem 'rack-cors'
 
 gem 'twitter'
+gem 'twitter-text'
 gem 'koala'
 gem 'omniauth-facebook'
