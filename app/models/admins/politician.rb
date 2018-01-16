@@ -11,6 +11,8 @@ class Admins::Politician < ApplicationRecord
   enum party: [:democrat, :republican, :independent, :vacant]
   enum position: [:senator, :congressman, :governor]
 
+  has_many :posts, -> {order(social_date: :desc).limit(1)}, class_name: 'Admins::Post'
+
   def self.import(file)
     CSV.foreach(file.path, headers: true, :row_sep => :auto) do |row|
       politician_hash = row.to_hash

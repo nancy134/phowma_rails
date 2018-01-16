@@ -11,26 +11,16 @@ namespace :twitter do
 
     Admins::Politician.all.each do |politician|
       if (politician.twitter)
-        user_timeline = client.user_timeline(politician.twitter, {count: 10, include_rts: false, trim_user: true, exclude_replies: true, include_entities: true})
+        user_timeline = client.user_timeline(politician.twitter, {count: 2, include_rts: false, trim_user: true, exclude_replies: true, include_entities: true})
 
         user_timeline.each do |tweet|
-          puts "tweet.id: #{tweet.id}"
-          puts "tweet.text: #{tweet.text}"
-          puts "tweet.created_at #{tweet.created_at}"
-          if (tweet.entities?)
-            entities = Twitter::Extractor.extract_entities_with_indices(tweet.text)
-            entities.each do |entity|
-              #puts "entitie: #{entity}"
-            end
+          post = Admins::Post.find_by(social_id: tweet.id)
+          if (post)
+            puts "Post found #{tweet.id}"
+          else
+            politician.posts.build(social_id: tweet.id, social_type: Admins::Post.social_types[:twitter], social_date: tweet.created_at)
+            politician.save
           end
-
-
-          if (tweet.media.present?)
-            tweet.media.each do |media_item|
-                puts "media_item.url: #{media_item.media_url}"
-            end
-          end
-
         end
       end
     end

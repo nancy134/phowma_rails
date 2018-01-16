@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107123928) do
+ActiveRecord::Schema.define(version: 20180114212818) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -112,8 +112,13 @@ ActiveRecord::Schema.define(version: 20171107123928) do
   create_table "admins_posts", force: :cascade do |t|
     t.string   "message"
     t.string   "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "politician_id"
+    t.datetime "social_date"
+    t.string   "social_id"
+    t.integer  "social_type"
+    t.index ["politician_id"], name: "index_admins_posts_on_politician_id"
   end
 
   create_table "admins_settings", force: :cascade do |t|
