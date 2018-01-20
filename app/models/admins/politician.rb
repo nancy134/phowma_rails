@@ -9,7 +9,7 @@ class Admins::Politician < ApplicationRecord
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
   enum party: [:democrat, :republican, :independent, :vacant]
-  enum position: [:senator, :congressman, :governor]
+  enum position: [:senator, :representative, :governor]
 
   has_many :posts, -> {order(social_date: :desc).limit(1)}, class_name: 'Admins::Post'
 

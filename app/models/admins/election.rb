@@ -4,7 +4,7 @@ class Admins::Election < ApplicationRecord
   belongs_to :state, class_name: "Admins::State"
   belongs_to :district, class_name: "Admins::District"
 
-  enum position: [:president, :senate, :congress, :governor]
+  enum position: [:president, :senate, :house, :governor]
 
   def election_name
     return self.position + " " + self.year.to_s

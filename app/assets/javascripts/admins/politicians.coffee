@@ -19,7 +19,7 @@ $ ->
   $('#admins_politician_position').on "change", ->
     console.log("Position change val: "+$(this).val());
     $el = $('#admins_politician_district_id');
-    if ($(this).val().indexOf('congressman') == 0)
+    if ($(this).val().indexOf('representative') == 0)
       $el.prop("disabled",false);
     else
       $el.prop("disabled",true);

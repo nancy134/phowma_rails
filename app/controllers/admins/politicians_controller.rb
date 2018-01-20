@@ -46,14 +46,12 @@ class Admins::PoliticiansController < ApplicationController
   # PATCH/PUT /admins/politicians/1.json
   def update
     respond_to do |format|
-      if (params[:postion] != Admins::Politician.congressman)
-        Rails.logger.debug "NANCY: Not a congressman district: #{@admins_politician.district_id}"
+      if (params[:postion] != Admins::Politician.representative)
         params[:district_id] = nil
         if (@admins_politician.district_id) 
           @admins_politician.district_id = nil
         end
       else
-        Rails.logger.debug "NANCY: Is a congressman district: #{@admins_politician.district_id}"
       end
       if @admins_politician.update(admins_politician_params)
         format.html { redirect_to @admins_politician, notice: 'Politician was successfully updated.' }

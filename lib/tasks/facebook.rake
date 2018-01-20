@@ -5,7 +5,8 @@ namespace :facebook do
     client = Koala::Facebook::API.new(setting.facebook_token)
     date = (Date.today-1.days).strftime("%Y-%m-%d")
     Admins::Politician.all.each do |politician|
-      if (politician.facebook)
+      if (politician.facebook && !politician.facebook.empty?)
+
         puts "#{politician.first_name} #{politician.last_name} #{politician.facebook}"
         messages = client.get_connection(politician.facebook, 'posts', {
           since: date,

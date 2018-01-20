@@ -1,8 +1,7 @@
-<%= form_for(admins_election) do |f| %>
+<%= form_for @admins_election, :html => {:class => "form-horizontal center"} do |f| %>
   <% if admins_election.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(admins_election.errors.count, "error") %> prohibited this admins_election from being saved:</h2>
-
+      <p><%= pluralize(admins_election.errors.count, "error") %> prohibitied this admins_election from being saved:</p>
       <ul>
       <% admins_election.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,23 +10,38 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :position %>
-    <%= f.select(:position, Admins::Election.positions.keys.map {|position| [position.titleize, position]}) %>
+  <div class="form-group">
+    <%= f.label :date, class: "col-md-2 control-label" %>
+
+    <div class="col-md-2" >
+      <%= f.text_field :date, class: "pdate form-control" %>
+    </div>
+
+
   </div>
 
-  <div class="field">
-    <%= f.label :year %>
-    <%= f.number_field :year %>
+  <div class="form-group">
+    <%= f.label :position, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= f.select(:position, Admins::Election.positions.keys.map {|position| [position.titleize, position]}, {}, {class: 'form-control'}) %>
+    </div>
+    <%= f.label :district, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= collection_select(:admins_election, :district_id, @admins_districts, :id, :name, {:include_blank => 'Select District'}, {:class => "form-control", :disabled => admins_election.house? ? false : true}) %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :date %>
-<%= f.date_select :date, {order: [:month, :day, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {required: true} %>
+
+  <div class="form-group">
+    <%= f.label :state, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= collection_select(:admins_election, :state_id, Admins::State.all, :id, :name, {}, {:class=>'form-control'}) %>
+    </div>
   </div>
-
-
-  <div class="actions">
-    <%= f.submit %>
+ 
+  <div class="form-group">
+    <div class="mod-md-offset-2 col-md-2">
+      <%= f.submit class: "btn btn-default btn-primary" %>
+    </div>
   </div>
 <% end %>

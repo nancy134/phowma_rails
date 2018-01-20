@@ -1,29 +1,17 @@
-<p>Admins Elections</p>
+<div class="page-header">
+  <h2>Elections</h2>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Position</th>
-      <th>Year</th>
-      <th>Date</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="row">
+  <div class="col-md-6">
+    <%= link_to 'New Election', new_admins_election_path, {:class => "btn btn-primary"} %>
+  </div>
 
-  <tbody>
-    <% @admins_elections.each do |admins_election| %>
-      <tr>
-        <td><%= admins_election.position %></td>
-        <td><%= admins_election.year %></td>
-        <td><%= admins_election.date %></td>
-        <td><%= link_to 'Show', admins_election %></td>
-        <td><%= link_to 'Edit', edit_admins_election_path(admins_election) %></td>
-        <td><%= link_to 'Destroy', admins_election, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="col-md-6">
+    <span class="pull-right"><button type="button" class="btn btn-link" data-toggle="collapse" data-target="#list_search">Search and Filter</button></span>
+  </div>
+</div>
 
-<br>
+<%= render 'list', admins_election: @admins_election %>
 
-<%= link_to 'New Admins Election', new_admins_election_path %>
+

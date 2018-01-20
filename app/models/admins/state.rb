@@ -21,19 +21,19 @@ class Admins::State < ApplicationRecord
 
   end
 
-  def congress
-    politician = politicians.where(position: "congressman")
+  def house
+    politician = politicians.where(position: "representative")
     return politician.length
   end
-  def congress_dems
-    politician = politicians.where(position: "congressman", party: "democrat")
+  def house_dems
+    politician = politicians.where(position: "representative", party: "democrat")
     return politician.length
   end
-  def congress_dem_percentage
+  def house_dem_percentage
     if self.abbreviation == "DC"
        return 100
     else
-      return self.congress_dems.to_f/self.congress.to_f*100
+      return self.house_dems.to_f/self.house.to_f*100
     end
   end
   def senate
@@ -72,10 +72,10 @@ class Admins::State < ApplicationRecord
     end
   end
   def stars
-    return [president_2016,senate_dem_percentage, congress_dem_percentage, governor_dem_percentage, 0]
+    return [president_2016,senate_dem_percentage, house_dem_percentage, governor_dem_percentage, 0]
   end
   def total
-    return president_2016+senate_dem_percentage+congress_dem_percentage+governor_dem_percentage
+    return president_2016+senate_dem_percentage+house_dem_percentage+governor_dem_percentage
   end
 
 end

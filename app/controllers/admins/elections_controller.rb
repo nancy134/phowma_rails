@@ -5,7 +5,8 @@ class Admins::ElectionsController < ApplicationController
   # GET /admins/elections
   # GET /admins/elections.json
   def index
-    @admins_elections = Admins::Election.all
+    @search = Admins::Election.ransack(params[:q])
+    @admins_elections = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admins/elections/1
@@ -16,10 +17,12 @@ class Admins::ElectionsController < ApplicationController
   # GET /admins/elections/new
   def new
     @admins_election = Admins::Election.new
+    @admins_districts = Admins::District.all
   end
 
   # GET /admins/elections/1/edit
   def edit
+    @admins_districts = Admins::District.where(state_id: @admins_election.state_id)
   end
 
   # POST /admins/elections
@@ -70,6 +73,6 @@ class Admins::ElectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_election_params
-      params.require(:admins_election).permit(:position, :year)
+      params.require(:admins_election).permit(:position, :year, :date, :state_id, :district_id)
     end
 end

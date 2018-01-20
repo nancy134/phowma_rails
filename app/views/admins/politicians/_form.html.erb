@@ -12,7 +12,7 @@
   <% end %>
   <%= admins_politician.id %>
   <%= admins_politician.position%>
-  <%= admins_politician.congressman? ? "yes" : "No" %>
+  <%= admins_politician.representative? ? "yes" : "No" %>
   <div class="form-group">
     <%= f.label :first_name, class: "col-md-2 control-label" %> 
     <div class="col-md-8">
@@ -53,7 +53,7 @@
     </div>
     <%= f.label :district, class: "col-md-2 control-label" %>
     <div class="col-md-2">
-      <%= collection_select(:admins_politician, :district_id, @admins_districts, :id, :name, {:include_blank => 'Select District'}, {:class=> "form-control", :disabled => admins_politician.congressman? ? false : true}) %>
+      <%= collection_select(:admins_politician, :district_id, @admins_districts, :id, :name, {:include_blank => 'Select District'}, {:class=> "form-control", :disabled => admins_politician.representative? ? false : true}) %>
     </div>
   </div>
 

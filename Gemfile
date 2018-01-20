@@ -82,3 +82,5 @@ gem 'twitter'
 gem 'twitter-text'
 gem 'koala'
 gem 'omniauth-facebook'
+
+gem 'bootstrap-datepicker-rails'
