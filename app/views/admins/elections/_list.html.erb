@@ -13,7 +13,11 @@
     <% @admins_elections.each do |admins_election| %>
       <tr>
         <td><%= admins_election.date %></td>
-        <td><%= admins_election.state.name %></td>
+        <% if admins_election.state %>
+          <td><%= admins_election.state.name %></td>
+        <% else %>
+          <td></td>
+        <% end %>
         <td><%= admins_election.position %></td>
         <td><%= link_to 'Show', admins_election %></td>
         <td><%= link_to 'Edit', edit_admins_election_path(admins_election) %></td>
