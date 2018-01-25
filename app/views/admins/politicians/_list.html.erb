@@ -1,6 +1,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th><%= sort_link(@search, :id, "Id") %></th>
       <th><%= sort_link(@search, :last_name, "Last Name") %></th>
       <th><%= sort_link(@search, :first_name, "First Name") %></th>
       <th>Party</th>
@@ -14,6 +15,7 @@
     <%= render 'filter', search:@search %>
     <% @admins_politicians.each do |admins_politician| %>
       <tr>
+        <td><%= admins_politician.id %></td>
         <td><%= admins_politician.last_name %></td>
         <td><%= admins_politician.first_name %></td>
         <td><%= admins_politician.party %></td>

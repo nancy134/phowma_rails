@@ -37,6 +37,11 @@
     <div class="col-md-2">
       <%= collection_select(:admins_election, :state_id, Admins::State.all, :id, :name, {}, {:class=>'form-control'}) %>
     </div>
+    <%= f.label 'Incumbent', class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= collection_select(:admins_election, :politician_id, Admins::Politician.all, :id, :last_name, {}, {:class=>'form-control'}) %>
+
+     </div>
   </div>
  
   <div class="form-group">

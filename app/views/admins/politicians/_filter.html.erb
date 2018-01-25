@@ -1,6 +1,7 @@
  
   <%= search_form_for @search do |f| %>
   <tr id="list_search" class="collapse in">
+    <td><%= f.text_field :id_eq %></td>
     <td><%= f.text_field :last_name_cont %></td>
     <td><%= f.text_field :first_name_cont %></td>
     <td><%= f.select :party_in, Admins::Politician.parties.to_a.map { |w| [w[0].
