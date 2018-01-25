@@ -1,10 +1,12 @@
 class Admins::PostsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_admins_post, only: [:show, :edit, :update, :destroy]
 
   # GET /admins/posts
   # GET /admins/posts.json
   def index
-    @admins_posts = Admins::Post.all
+    @search = Admins::Post.ransack(params[:q])
+    @admins_posts = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admins/posts/1
@@ -69,6 +71,6 @@ class Admins::PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_post_params
-      params.require(:admins_post).permit(:message, :image)
+      params.require(:admins_post).permit(:social_type, :social_id, :social_date, :message, :image)
     end
 end

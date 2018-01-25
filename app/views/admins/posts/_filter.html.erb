@@ -1,0 +1,10 @@
+<%= search_form_for @search do |f| %>
+<tr id="list_search" class="collapse in">
+  <td><%= f.text_field :social_date_eq %></td>
+  <td><%= f.select :social_type_in, Admins::Post.social_types.to_a.map { |w| [w[0].humanize, w[1]] },{:include_blank => true},{:multiple => true} %></td>
+  <td><%= f.text_field :social_id_eq %></td>
+  <td><%= f.submit "Search" %></td>
+  <td></td>
+  <td></td>
+</tr>
+<% end %>
