@@ -20,7 +20,7 @@ class Api::V1::PoliticiansController < Api::V1::BaseController
       paginate json: politicians, each_serializer: Api::V1::PoliticianSerializer
     else
       rpoliticians = Admins::Politician.ransack(params[:q])
-      politicians = rpoliticians.result.joins(:state).order("random()")
+      politicians = rpoliticians.result.order(latest_social: :desc)
       paginate json: politicians, each_serializer: Api::V1::PoliticianSerializer
     end
   end

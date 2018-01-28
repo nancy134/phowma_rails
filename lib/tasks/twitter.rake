@@ -10,6 +10,7 @@ namespace :twitter do
     end
 
     Admins::Politician.all.each do |politician|
+      puts "#{politician.first_name} #{politician.last_name}"
       if (politician.twitter)
         user_timeline = client.user_timeline(politician.twitter, {count: 2, include_rts: false, trim_user: true, exclude_replies: true, include_entities: true})
 
@@ -19,6 +20,14 @@ namespace :twitter do
             puts "Post found #{tweet.id}"
           else
             politician.posts.build(social_id: tweet.id, social_type: Admins::Post.social_types[:twitter], social_date: tweet.created_at)
+            social_date = tweet.created_at
+            if (!politician.latest_social)
+              politician.latest_social = social_date
+            else
+              if (politician.latest_social < social_date)
+                politician.latest_social = social_date
+              end
+            end
             politician.save
           end
         end

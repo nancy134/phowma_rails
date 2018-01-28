@@ -3,7 +3,7 @@ namespace :facebook do
   task latest_post: :environment do
     setting = Admins::Setting.first
     client = Koala::Facebook::API.new(setting.facebook_token)
-    date = (Date.today-1.days).strftime("%Y-%m-%d")
+    date = (Date.today-4.days).strftime("%Y-%m-%d")
     Admins::Politician.all.each do |politician|
       if (politician.facebook && !politician.facebook.empty?)
 
@@ -19,6 +19,14 @@ namespace :facebook do
             puts "Post found #{message_record["id"]}"
           else
             politician.posts.build(social_id: message_record["id"], social_type: Admins::Post.social_types[:facebook], social_date: message_record["created_time"])
+            social_date = DateTime.parse(message_record["created_time"])
+            if (!politician.latest_social)
+              politician.latest_social = social_date
+            else
+              if (politician.latest_social < social_date)
+                politician.latest_social = social_date
+              end 
+            end
             politician.save 
           end
         end
