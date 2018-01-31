@@ -10,6 +10,8 @@ class Api::V1::StatesController < Api::V1::BaseController
       states = Admins::State.order(:name)
       if (params[:type] == 'min')
         render json: states, each_serializer: Api::V1::StateMinSerializer
+      elsif (params[:type] == 'list')
+        render json: states, each_serializer: Api::V1::StateListSerializer
       else
         paginate json: states, each_serializer: Api::V1::StateAllSerializer
       end
