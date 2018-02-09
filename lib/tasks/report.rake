@@ -28,4 +28,18 @@ namespace :report do
       end
     end
   end
+
+  desc 'State report'
+  task states: :environment do
+    file = "states.csv"
+    header = "id,name,abbreviation"
+    File.open(file,'w') do |csv|
+      csv << header
+      csv << "\n"
+      Admins::State.all.each do |state|
+        csv << "#{state.id},#{state.abbreviation},#{state.name}"
+        csv << "\n"
+      end
+    end
+  end
 end
