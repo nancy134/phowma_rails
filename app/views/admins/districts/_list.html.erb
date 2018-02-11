@@ -8,6 +8,7 @@
     </tr>
   </thead>
   <tbody>
+    <%= render 'filter', search:@search %>
     <% @admins_districts.each do |admins_district| %>
       <tr>
         <td><%= admins_district.name %></td>

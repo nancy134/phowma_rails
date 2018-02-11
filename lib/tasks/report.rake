@@ -18,12 +18,16 @@ namespace :report do
   desc 'Politician report'
   task politicians: :environment do
     file = "politicians.csv"
-    header = "id,state,first,last"
+    header = "id,state.id,state.abbr,first_name,last_name,position,party,twitter,facebook,district.id,district.name,thumb"
     File.open(file, 'w') do |csv|
       csv << header
       csv << "\n"
       Admins::Politician.all.each do |politician|
-        csv << "#{politician.id},#{politician.state.abbreviation},#{politician.first_name},#{politician.last_name},#{politician.position},#{politician.party},#{politician.twitter},#{politician.facebook},#{politician.avatar_thumb},#{politician.district.name}"
+        if (politician.district)
+          csv << "#{politician.id},#{politician.state.id},#{politician.state.abbreviation},#{politician.first_name},#{politician.last_name},#{politician.position},#{politician.party},#{politician.twitter},#{politician.facebook},#{politician.district.id},#{politician.district.name},#{politician.avatar_thumb}"
+        else
+          csv << "#{politician.id},#{politician.state.id},#{politician.state.abbreviation},#{politician.first_name},#{politician.last_name},#{politician.position},#{politician.party},#{politician.twitter},#{politician.facebook},,,#{politician.avatar_thumb}"
+        end
         csv << "\n"
       end
     end
