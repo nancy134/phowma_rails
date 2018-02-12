@@ -36,4 +36,39 @@ namespace :data do
     end
   end
 
+  desc "import_elections"
+  task import_elections: :environment do
+
+    require 'csv'
+
+    csv_text = File.read('/tmp/elections.csv')
+    csv = CSV.parse(csv_text, :headers => true)
+
+    csv.each do |row|
+
+      election_row = row.to_hash
+       
+      #politician_id
+      #state_ic 
+      election_row.delete("state.abbr")
+      election_row.delete("first_name")
+      election_row.delete("last_name")
+      #position
+      election_row.delete("party")
+      election_row.delete("twitter")
+      election_row.delete("facebook")
+      #district_id
+      election_row.delete("district.name")
+      election_row.delete("election")
+      #running
+      #date
+      election_row.delete("entered?")
+
+      if (election_row["running"] === "no")
+        election_row.delete("politician_id")
+      end
+      election_row.delete("running") 
+      Admins::Election.create!(election_row)
+    end
+  end
 end
