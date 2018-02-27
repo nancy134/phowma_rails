@@ -49,7 +49,7 @@ namespace :data do
       election_row = row.to_hash
        
       #politician_id
-      #state_ic 
+      #state_id
       election_row.delete("state.abbr")
       election_row.delete("first_name")
       election_row.delete("last_name")
@@ -62,12 +62,13 @@ namespace :data do
       election_row.delete("election")
       #running
       #date
-      election_row.delete("entered?")
 
       if (election_row["running"] === "no")
         election_row.delete("politician_id")
       end
       election_row.delete("running") 
+
+      puts "#{election_row.to_json}"
       Admins::Election.create!(election_row)
     end
   end
