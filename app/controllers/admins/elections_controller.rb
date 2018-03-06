@@ -73,6 +73,6 @@ class Admins::ElectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_election_params
-      params.require(:admins_election).permit(:position, :year, :date, :state_id, :district_id, :politician_id)
+      params.require(:admins_election).permit(:position, :year, :date, :state_id, :district_id, :politician_id, :election_type, :wikipedia)
     end
 end
