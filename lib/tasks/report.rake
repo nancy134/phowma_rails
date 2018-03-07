@@ -50,12 +50,18 @@ namespace :report do
   desc 'Election report'
   task elections: :environment do
     file = "elections.csv"
-    header = "id,position,date,state_id,district_id,politician_id,election_type,wikipedia"
+    header = "id,position,date,state_id,state,district_id,politician_id,first_name,last_name,election_type,wikipedia"
     File.open(file,'w') do |csv|
       csv << header
       csv << "\n"
       Admins::Election.all.each do |election|
-        csv << "#{election.id},#{election.position},#{election.date},#{election.state_id},#{election.district_id},#{election.politician_id},#{election.election_type},#{election.wikipedia}"
+        first_name = ""
+        last_name = ""
+        if (election.politician)
+          first_name = election.politician.first_name
+          last_name = election.politician.last_name
+        end
+        csv << "#{election.id},#{election.position},#{election.date},#{election.state_id},#{election.state.name},#{election.district_id},#{election.politician_id},#{first_name},#{last_name},#{election.election_type},#{election.wikipedia}"
         csv << "\n"
       end
     end
