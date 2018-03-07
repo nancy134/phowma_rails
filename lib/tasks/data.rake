@@ -72,4 +72,11 @@ namespace :data do
       Admins::Election.create!(election_row)
     end
   end
+  desc "add general election"
+  task add_general_election: :environment do
+    Admins::Election.all.each do |election|
+      election.election_type = "general"
+      election.save
+    end
+  end
 end
