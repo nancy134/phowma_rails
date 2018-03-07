@@ -11,6 +11,7 @@ class Admins::Politician < ApplicationRecord
 
   enum party: [:democrat, :republican, :independent, :vacant]
   enum position: [:senator, :representative, :governor]
+  enum office_status: [:in, :seeking, :out]
 
   has_many :posts, -> {order(social_date: :desc).limit(1)}, class_name: 'Admins::Post'
 

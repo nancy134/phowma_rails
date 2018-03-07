@@ -46,4 +46,18 @@ namespace :report do
       end
     end
   end
+
+  desc 'Election report'
+  task elections: :environment do
+    file = "elections.csv"
+    header = "id,position,date,state_id,district_id,politician_id,election_type,wikipedia"
+    File.open(file,'w') do |csv|
+      csv << header
+      csv << "\n"
+      Admins::Election.all.each do |election|
+        csv << "#{election.id},#{election.position},#{election.date},#{election.state_id},#{election.district_id},#{election.politician_id},#{election.election_type},#{election.wikipedia}"
+        csv << "\n"
+      end
+    end
+  end
 end
