@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Politician Id:</strong>
+  <%= @admins_campaign.politician_id %>
+  <strong>Election Id:</strong>
+  <%= @admins_campaign.election_id %>
+</p>
+
+<%= link_to 'Edit', edit_admins_campaign_path(@admins_campaign) %> |
+<%= link_to 'Back', admins_campaigns_path %>

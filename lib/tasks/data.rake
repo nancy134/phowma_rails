@@ -72,6 +72,21 @@ namespace :data do
       Admins::Election.create!(election_row)
     end
   end
+
+  desc "import campaigns"
+  task import_campaigns: :environment do
+    require 'csv'
+
+    csv_text = File.read('/tmp/campaigns.csv')
+    csv = CSV.parse(csv_text, :headers => true)
+
+    csv.each do |row|
+      campaign_row = row.to_hash
+      Admins::Campaign.create!(campaign_row)
+    end
+
+  end
+
   desc "add general election"
   task add_general_election: :environment do
     Admins::Election.all.each do |election|

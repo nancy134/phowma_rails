@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       end
     end
     resources :zips
+    resources :campaigns
     resources :users
     resources :states do
       collection {post :import}

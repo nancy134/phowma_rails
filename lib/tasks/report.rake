@@ -61,7 +61,11 @@ namespace :report do
           first_name = election.politician.first_name
           last_name = election.politician.last_name
         end
-        csv << "#{election.id},#{election.position},#{election.date},#{election.state_id},#{election.state.name},#{election.district_id},#{election.politician_id},#{first_name},#{last_name},#{election.election_type},#{election.wikipedia}"
+        state_name = ""
+        if (election.state)
+          state_name = election.state.name
+        end
+        csv << "#{election.id},#{election.position},#{election.date},#{election.state_id},#{state_name},#{election.district_id},#{election.politician_id},#{first_name},#{last_name},#{election.election_type},#{election.wikipedia}"
         csv << "\n"
       end
     end

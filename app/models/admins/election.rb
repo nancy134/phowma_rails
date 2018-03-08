@@ -5,6 +5,9 @@ class Admins::Election < ApplicationRecord
   belongs_to :district, class_name: "Admins::District"
   belongs_to :politician, class_name: "Admins::Politician"
 
+  has_many :campaigns, class_name: "Admins::Campaign"
+  has_many :politicians, through: :campaigns
+
   enum position: [:president, :senate, :house, :governor]
   enum election_type: [:primary, :general, :runoff]
   def election_name

@@ -32,6 +32,7 @@
         <li class="<%= 'active' if params[:controller] == 'admins/area_codes' %>"> <%= link_to "Area Codes", admins_area_codes_path %></li>
         <li class="<%= 'active' if params[:controller] == 'admins/socials' %>"> <%= link_to "Socials", admins_socials_path %></li>
         <li class="<%= 'active' if params[:controller] == 'admins/posts' %>"> <%= link_to "Posts", admins_posts_path %></li>
+        <li class="<%= 'active' if params[:controller] == 'admins/campaigns' %>"> <%= link_to "Campaigns", admins_campaigns_path %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 <% if admin_signed_in? %>

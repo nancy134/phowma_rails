@@ -13,6 +13,9 @@ class Admins::Politician < ApplicationRecord
   enum position: [:senator, :representative, :governor]
   enum office_status: [:in, :seeking, :out]
 
+  has_many :campaigns, class_name: "Admins::Campaign"
+  has_many :elections, through: :campaigns
+
   has_many :posts, -> {order(social_date: :desc).limit(1)}, class_name: 'Admins::Post'
 
   def self.import(file)
