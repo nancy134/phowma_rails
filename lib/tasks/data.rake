@@ -87,6 +87,17 @@ namespace :data do
 
   end
 
+  desc "import offices"
+  task import_offices: :environment do
+    require 'csv'
+    csv_text = File.read('/tmp/offices.csv')
+    csv = CSV.parse(csv_text, :headers => true)
+    csv.each do |row|
+      office_row = row.to_hash
+      Admins::Office.create!(office_row)
+    end
+  end
+
   desc "add general election"
   task add_general_election: :environment do
     Admins::Election.all.each do |election|

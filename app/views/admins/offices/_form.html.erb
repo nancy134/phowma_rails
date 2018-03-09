@@ -1,0 +1,37 @@
+<%= form_for(admins_office) do |f| %>
+  <% if admins_office.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(admins_office.errors.count, "error") %> prohibited this admins_office from being saved:</h2>
+
+      <ul>
+      <% admins_office.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :position %>
+    <%= f.number_field :position %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state_id %>
+    <%= f.number_field :state_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :district_id %>
+    <%= f.number_field :district_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :politician_id %>
+    <%= f.number_field :politician_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

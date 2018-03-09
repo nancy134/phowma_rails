@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @admins_office.position %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @admins_office.state_id %>
+</p>
+
+<p>
+  <strong>District:</strong>
+  <%= @admins_office.district_id %>
+</p>
+
+<p>
+  <strong>Politician:</strong>
+  <%= @admins_office.politician_id %>
+</p>
+
+<%= link_to 'Edit', edit_admins_office_path(@admins_office) %> |
+<%= link_to 'Back', admins_offices_path %>
