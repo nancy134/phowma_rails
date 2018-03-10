@@ -40,5 +40,13 @@
   <%= @admins_politician.facebook %>
 </p>
 
+<p>
+  <strong>Office id</strong>
+  <%= @admins_politician.office.id %>
+</p>
+</p>
+  <strong>Office state</strong>
+  <%= @admins_politician.office.state.name %>
+</p>
 <%= link_to 'Edit', edit_admins_politician_path(@admins_politician) %> |
 <%= link_to 'Back', admins_politicians_path %>

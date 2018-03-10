@@ -4,6 +4,7 @@ class Admins::Election < ApplicationRecord
   belongs_to :state, class_name: "Admins::State"
   belongs_to :district, class_name: "Admins::District"
   belongs_to :politician, class_name: "Admins::Politician"
+  belongs_to :office, class_name:"Admins::Office"
 
   has_many :campaigns, class_name: "Admins::Campaign"
   has_many :politicians, through: :campaigns

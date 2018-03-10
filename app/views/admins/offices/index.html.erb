@@ -1,33 +1,16 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"><%= notice%></p>
+<div class="page-header">
+  <h2>Offices</h2>
+</div>
 
-<h1>Admins Offices</h1>
+<div class="row">
+  <div class="col-md-6">
+    <%= link_to 'New office', new_admins_office_path, {:class => "btn btn-primary"} %>
+  </div>
+  <div class="col-md-6">
+    <span class="pull-right"><button type="button" class="btn btn-link" data-toggle="collapse" data-target="#list_search">Search and Filter</button></span>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Position</th>
-      <th>State</th>
-      <th>District</th>
-      <th>Politician</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= render 'list', admins_office: @admins_office %>
 
-  <tbody>
-    <% @admins_offices.each do |admins_office| %>
-      <tr>
-        <td><%= admins_office.position %></td>
-        <td><%= admins_office.state_id %></td>
-        <td><%= admins_office.district_id %></td>
-        <td><%= admins_office.politician_id %></td>
-        <td><%= link_to 'Show', admins_office %></td>
-        <td><%= link_to 'Edit', edit_admins_office_path(admins_office) %></td>
-        <td><%= link_to 'Destroy', admins_office, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Admins Office', new_admins_office_path %>

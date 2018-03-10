@@ -1,0 +1,37 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Position</th>
+      <th>State</th>
+      <th>District</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render 'filter', search:@search %>
+    <% @admins_offices.each do |admins_office| %>
+      <tr>
+        <td><%= admins_office.id %></td>
+        <td><%= admins_office.position %></td>
+        <td><%= admins_office.state.name %></td>
+        <% if admins_office.district %>
+          <td><%= admins_office.district.name %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td><%= admins_office.politician.first_name %></td>
+        <td><%= admins_office.politician.last_name %></td>
+        <td><%= link_to 'Show', admins_office %></td>
+        <td><%= link_to 'Edit', edit_admins_office_path(admins_office)%></td>
+        <td><%= link_to 'Destroy', admins_office, method: :delete, data: {confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @admins_offices %>
+
+

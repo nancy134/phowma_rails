@@ -105,4 +105,35 @@ namespace :data do
       election.save
     end
   end
+
+  desc "add office to election"
+  task add_office_to_election: :environment do
+    Admins::Election.all.each do |election|
+      puts "election.position: #{election.position}"
+      if (election.position)
+      if (election.house?)
+        position = Admins::Office.positions[:representative]
+      end
+      if (election.senate?)
+        position = Admins::Office.positions[:senator]
+      end
+      if (election.governor?)
+        position = Admins::Office.positoins[:governor]
+      end
+
+      if (election.district) 
+        office = Admins::Office.where(position: position, state_id: election.state.id, district: election.district.id).first
+      else
+        office = Admins::Office.where(position: position, state_id: election.state.id).first
+      end
+      if (office)
+        puts "Office: #{office.id}"
+      else
+        puts "office not found"
+      end
+      election.office_id = office.id
+      election.save
+      end
+    end
+  end
 end

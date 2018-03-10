@@ -1,10 +1,12 @@
 class Admins::OfficesController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_admins_office, only: [:show, :edit, :update, :destroy]
 
   # GET /admins/offices
   # GET /admins/offices.json
   def index
-    @admins_offices = Admins::Office.all
+    @search = Admins::Office.ransack(params[:q])
+    @admins_offices = @search.result.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admins/offices/1
@@ -15,10 +17,12 @@ class Admins::OfficesController < ApplicationController
   # GET /admins/offices/new
   def new
     @admins_office = Admins::Office.new
+    @admins_districts = Admins::District.all
   end
 
   # GET /admins/offices/1/edit
   def edit
+    @admins_districts = Admins::District.where(state_id: @admins_politician.state_id)
   end
 
   # POST /admins/offices
@@ -41,6 +45,14 @@ class Admins::OfficesController < ApplicationController
   # PATCH/PUT /admins/offices/1.json
   def update
     respond_to do |format|
+
+      if (params[:position] != Admins::Office.representative)
+        params[:district_id] = nil
+        if (@admins_office.district_id)
+          @admins_office.district_id =nil
+        end
+      end
+
       if @admins_office.update(admins_office_params)
         format.html { redirect_to @admins_office, notice: 'Office was successfully updated.' }
         format.json { render :show, status: :ok, location: @admins_office }
