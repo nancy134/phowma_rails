@@ -1,28 +1,39 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 $ ->
-  $('#admins_politician_state_id').on "change", ->
-    getDistricts();
+  $(window).on "load", =>
+    console.log("onLoad")
+    setDistricts();
 
-  $('#admins_politician_position').on "change", ->
-    console.log("Position change val: "+$(this).val());
-    $el = $('#admins_politician_district_id');
-    if ($(this).val().indexOf('representative') == 0)
-      $el.prop("disabled",false);
-      getDistricts();
-    else
-      $el.prop("disabled",true);
+  $('#office_state_id').on "change", ->
+    setDistricts();
+
+  $('#office_position').on "change", ->
+    setDistricts();
+
+setDistricts = () ->
+  position = $('#office_position').find('option:selected').val()
+  console.log("position: "+position);
+  state_id = $('#office_state_id').find('option:selected').val()
+  console.log("state_id: "+state_id);
+  if (state_id && position && position.indexOf('representative') == 0)
+    console.log("enable districts");
+    $('#office_district_id').prop("disabled",false);
+    getDistricts();
+  else
+    console.log("disable districts");
+    $('#office_district_id').prop("disabled",true);
 
 
 getDistricts = () ->
   console.log("getDistricts()");
-  state_id = $('#admins_politician_state_id').find('option:selected').val();
+  state_id = $('#office_state_id').find('option:selected').val();
   $.ajax
     url: "/api/v1/districts?state_id="+state_id
     type: "GET"
     dataType: "json"
     success: (data) ->
-      $el = $('#admins_politician_district_id');
+      $el = $('#office_district_id');
       $el.empty();
       $el.append $('<option></option>').attr('value', "0").text('Select district')
       for i in [0...data.length] by 1

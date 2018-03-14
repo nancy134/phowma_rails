@@ -7,7 +7,7 @@ class Admins::PoliticiansController < ApplicationController
   # GET /admins/politicians.json
   def index
     @search = Admins::Politician.ransack(params[:q])
-    @admins_politicians = @search.result.paginate(page: params[:page], per_page: 10)
+    @admins_politicians = @search.result.includes(:office).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admins/politicians/1
@@ -87,6 +87,16 @@ class Admins::PoliticiansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_politician_params
-      params.require(:admins_politician).permit(:name, :first_name, :last_name, :position, :party, :state_id, :district_id, :attribution, :avatar, :twitter, :facebook, :office_status)
+      params.require(:admins_politician).permit(
+        :first_name,
+        :last_name,
+        :party,
+        :avatar,
+        :twitter,
+        :facebook,
+        office_attributes:[
+          :position,
+          :state_id,
+          :district_id])
     end
 end

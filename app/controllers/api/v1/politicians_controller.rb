@@ -21,7 +21,7 @@ class Api::V1::PoliticiansController < Api::V1::BaseController
     else
       rpoliticians = Admins::Politician.ransack(params[:q])
       politicians = rpoliticians.result.order(latest_social: :desc)
-      paginate json: politicians, each_serializer: Api::V1::PoliticianSerializer
+      paginate json: politicians, each_serializer: Api::V1::PoliticianSerializer, include: '**'
     end
   end
 end

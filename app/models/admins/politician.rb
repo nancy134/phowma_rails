@@ -2,17 +2,13 @@ class Admins::Politician < ApplicationRecord
 
   require 'csv'
 
-  belongs_to :state, class_name: 'Admins::State'
-  belongs_to :district, class_name: 'Admins::District'
-  has_one :election, class_name: 'Admins::Election'
   has_one :office, class_name: 'Admins::Office'
+  accepts_nested_attributes_for :office
 
   has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100#"}, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
   enum party: [:democrat, :republican, :independent, :vacant]
-  enum position: [:senator, :representative, :governor]
-  enum office_status: [:in, :seeking, :out]
 
   has_many :campaigns, class_name: "Admins::Campaign"
   has_many :elections, through: :campaigns

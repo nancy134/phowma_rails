@@ -19,8 +19,13 @@
         <td><%= admins_politician.last_name %></td>
         <td><%= admins_politician.first_name %></td>
         <td><%= admins_politician.party %></td>
-        <td><%= admins_politician.position %></td>
-        <td><%= admins_politician.state.name %></td>
+        <% if admins_politician.office %>
+          <td><%= admins_politician.office.position %></td>
+          <td><%= admins_politician.office.state.name %></td>
+        <% else %>
+          <td></td>
+          <td></td>
+        <% end %>
         <td><%= link_to 'Show', admins_politician %></td>
         <td><%= link_to 'Edit', edit_admins_politician_path(admins_politician) %></td>
         <td><%= link_to 'Destroy', admins_politician, method: :delete, data: { confirm: 'Are you sure?' } %></td>

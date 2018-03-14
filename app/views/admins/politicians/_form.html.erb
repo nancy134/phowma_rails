@@ -10,9 +10,6 @@
       </ul>
     </div>
   <% end %>
-  <%= admins_politician.id %>
-  <%= admins_politician.position%>
-  <%= admins_politician.representative? ? "yes" : "No" %>
   <div class="form-group">
     <%= f.label :first_name, class: "col-md-2 control-label" %> 
     <div class="col-md-8">
@@ -27,33 +24,12 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :attribution, class: "col-md-2 control-label" %>
-    <div class="col-md-8">
-      <%= f.text_field :attribution, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
     <div>
-      <%= f.label :position , class: "col-md-2 control-label" %>
-      <div class="col-md-2">
-        <%= f.select(:position, Admins::Politician.positions.keys.map {|position| [position.titleize, position]}, {}, {class: 'form-control'}) %>
-      </div>
       <%= f.label :party, class: "col-md-2 control-label" %>
       <div class="col-md-2">
-        <%= f.select(:party, Admins::Politician.parties.keys.map {|party| [party.titleize, party]}, {}, {class: 'form-control'}) %>
+        <%= f.select(:party, Admins::Politician.parties.keys.map {|party| [party.titleize, party]}, {include_blank: 'Select party'}, {class: 'form-control'}) %>
       </div>
 
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :state, class: "col-md-2 control-label" %>
-    <div class="col-md-2">
-      <%= collection_select(:admins_politician, :state_id, Admins::State.all, :id, :name, {}, {:class=>'form-control'}) %>
-    </div>
-    <%= f.label :district, class: "col-md-2 control-label" %>
-    <div class="col-md-2">
-      <%= collection_select(:admins_politician, :district_id, @admins_districts, :id, :name, {:include_blank => 'Select District'}, {:class=> "form-control", :disabled => admins_politician.representative? ? false : true}) %>
     </div>
   </div>
 
@@ -68,18 +44,44 @@
     </div>
   </div>
 
+  <%= fields_for :office do |o| %>
+    <div class="form-group">
+      <%= o.label :position, class: "col-md-2 control-label" %>
+      <div class="col-md-2">
+        <%= o.select(:position, Admins::Office.positions.keys.map {|position| [position.titleize, position]}, {include_blank: 'Select position'}, {class: 'form-control'}) %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= o.label :state, class: "col-md-2 control-label" %>
+      <div class="col-md-2">
+        <%= o.collection_select(:state_id, Admins::State.all, :id, :name, {include_blank: 'Select state'}, {:class => 'form-control'}) %>
+      </div> 
+      <%= o.label :district, class: "col-md-2 control-label" %>
+      <div class="col-md-2">
+        <%= o.collection_select(
+          :district_id, 
+          Admins::District.all,
+          :id,
+          :name, 
+          {include_blank: 'Select district'},
+          {class: 'form-control', 
+          :disabled => true }) %>
+       </div>
+    </div>
+    </div>
+  <% end %>
+
+
   <div class="form-group">
-    <%= f.label :office_status, class: "col-md-2 control-label" %>
+    <%= f.label :avatar, class: "col-md-2 control-label" %>
+    <div class="col-md-4">
+      <%= f.file_field  :avatar, class: "form-control" %>
+    </div>
     <div class="col-md-2">
-      <%= f.select(:office_status, Admins::Politician.office_statuses.keys.map {|office_status| [office_status.titleize, office_status]}, {}, {class: 'form-control'}) %>
+      <%= image_tag @admins_politician.avatar.url(:thumb) %>
     </div>
   </div>
 
-  <div class="field">
-    <%= f.label :avatar %>
-    <%= f.file_field  :avatar %>
-    <%= image_tag @admins_politician.avatar.url(:thumb) %>
-  </div>
   <div class="form-group">
     <div class="col-md-offset-2 col-md-2">
       <%= f.submit class: "btn btn-default btn-primary" %>

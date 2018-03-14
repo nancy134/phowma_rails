@@ -1,10 +1,4 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @admins_politician.name %>
-</p>
-
 <p>
   <strong>First Name:</strong>
   <%= @admins_politician.first_name %>
@@ -20,15 +14,23 @@
   <%= @admins_politician.party %>
 </p>
 
-<p>
-  <strong>Position:</strong>
-  <%= @admins_politician.position %>
-</p>
+<% if @admins_politician.office %>
+  <p>
+    <strong>Position:</strong>
+    <%= @admins_politician.office.position %>
+  </p>
+  <p>
+    <strong>State:</strong>
+    <%= @admins_politician.office.state.name %>
+  </p>
 
-<p>
-  <strong>State:</strong>
-  <%= @admins_politician.state.name %>
-</p>
+  <% if @admins_politician.office.district %>
+    <p>
+      <strong>District:</strong>
+      <%= @admins_politician.office.district.name %>
+    </p>
+  <% end %>
+<% end %>
 
 <p>
   <strong>Twitter:</strong>
@@ -36,17 +38,9 @@
 </p>
 
 <p>
-  <strong>Facebook</strong>
+  <strong>Facebook:</strong>
   <%= @admins_politician.facebook %>
 </p>
 
-<p>
-  <strong>Office id</strong>
-  <%= @admins_politician.office.id %>
-</p>
-</p>
-  <strong>Office state</strong>
-  <%= @admins_politician.office.state.name %>
-</p>
 <%= link_to 'Edit', edit_admins_politician_path(@admins_politician) %> |
 <%= link_to 'Back', admins_politicians_path %>
