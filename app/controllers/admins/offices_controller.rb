@@ -22,7 +22,6 @@ class Admins::OfficesController < ApplicationController
 
   # GET /admins/offices/1/edit
   def edit
-    @admins_districts = Admins::District.where(state_id: @admins_politician.state_id)
   end
 
   # POST /admins/offices
@@ -81,6 +80,6 @@ class Admins::OfficesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_office_params
-      params.require(:admins_office).permit(:position, :state_id, :district_id, :politician_id)
+      params.require(:admins_office).permit(:position, :state_id, :district_id, :politician_id,:politician_last_name)
     end
 end

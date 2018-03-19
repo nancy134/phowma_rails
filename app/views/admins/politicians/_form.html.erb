@@ -44,34 +44,6 @@
     </div>
   </div>
 
-  <%= fields_for :office do |o| %>
-    <div class="form-group">
-      <%= o.label :position, class: "col-md-2 control-label" %>
-      <div class="col-md-2">
-        <%= o.select(:position, Admins::Office.positions.keys.map {|position| [position.titleize, position]}, {include_blank: 'Select position'}, {class: 'form-control'}) %>
-      </div>
-    </div>
-    <div class="form-group">
-      <%= o.label :state, class: "col-md-2 control-label" %>
-      <div class="col-md-2">
-        <%= o.collection_select(:state_id, Admins::State.all, :id, :name, {include_blank: 'Select state'}, {:class => 'form-control'}) %>
-      </div> 
-      <%= o.label :district, class: "col-md-2 control-label" %>
-      <div class="col-md-2">
-        <%= o.collection_select(
-          :district_id, 
-          Admins::District.all,
-          :id,
-          :name, 
-          {include_blank: 'Select district'},
-          {class: 'form-control', 
-          :disabled => true }) %>
-       </div>
-    </div>
-    </div>
-  <% end %>
-
-
   <div class="form-group">
     <%= f.label :avatar, class: "col-md-2 control-label" %>
     <div class="col-md-4">

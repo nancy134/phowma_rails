@@ -23,8 +23,13 @@
         <% else %>
           <td></td>
         <% end %>
-        <td><%= admins_office.politician.first_name %></td>
-        <td><%= admins_office.politician.last_name %></td>
+        <% if admins_office.politician %>
+          <td><%= admins_office.politician.first_name %></td>
+          <td><%= admins_office.politician.last_name %></td>
+        <% else %>
+          <td></td>
+          <td></td>
+        <% end %>
         <td><%= link_to 'Show', admins_office %></td>
         <td><%= link_to 'Edit', edit_admins_office_path(admins_office)%></td>
         <td><%= link_to 'Destroy', admins_office, method: :delete, data: {confirm: 'Are you sure?' } %></td>

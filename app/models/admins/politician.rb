@@ -3,7 +3,6 @@ class Admins::Politician < ApplicationRecord
   require 'csv'
 
   has_one :office, class_name: 'Admins::Office'
-  accepts_nested_attributes_for :office
 
   has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100#"}, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
@@ -56,5 +55,8 @@ class Admins::Politician < ApplicationRecord
     "http:" + avatar.url(:medium)
   end
 
+  def name
+    "#{last_name}, #{first_name}"
+  end
 end
 

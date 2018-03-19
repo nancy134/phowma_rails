@@ -24,4 +24,9 @@ class Api::V1::PoliticiansController < Api::V1::BaseController
       paginate json: politicians, each_serializer: Api::V1::PoliticianSerializer, include: '**'
     end
   end
+  def autocomplete
+    @politicians = Admins::Politician.order(:last_name).where("last_name like ?", "%#{params[:term]}%")
+    #render json: @politicians.map(&:last_name)
+    render json: @politicians, each_serializer: Api::V1::PoliticianAutoSerializer
+  end
 end

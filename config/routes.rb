@@ -51,7 +51,11 @@ Rails.application.routes.draw do
       resources :states, only: [:index]
       resources :area_codes, only: [:index]
       resources :elections, only: [:index]
-      resources :politicians, only: [:index]
+      resources :politicians do
+        collection do
+          get :autocomplete
+        end
+      end 
       resources :stores, only: [:index]
       resources :posts, only: [:index]
       resources :settings, only: [:index]

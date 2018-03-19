@@ -18,12 +18,10 @@ class Admins::PoliticiansController < ApplicationController
   # GET /admins/politicians/new
   def new
     @admins_politician = Admins::Politician.new
-    @admins_districts = Admins::District.all
   end
 
   # GET /admins/politicians/1/edit
   def edit
-    @admins_districts = Admins::District.where(state_id: @admins_politician.state_id)
   end
 
   # POST /admins/politicians
@@ -46,13 +44,6 @@ class Admins::PoliticiansController < ApplicationController
   # PATCH/PUT /admins/politicians/1.json
   def update
     respond_to do |format|
-      if (params[:postion] != Admins::Politician.representative)
-        params[:district_id] = nil
-        if (@admins_politician.district_id) 
-          @admins_politician.district_id = nil
-        end
-      else
-      end
       if @admins_politician.update(admins_politician_params)
         format.html { redirect_to @admins_politician, notice: 'Politician was successfully updated.' }
         format.json { render :show, status: :ok, location: @admins_politician }
@@ -93,10 +84,6 @@ class Admins::PoliticiansController < ApplicationController
         :party,
         :avatar,
         :twitter,
-        :facebook,
-        office_attributes:[
-          :position,
-          :state_id,
-          :district_id])
+        :facebook)
     end
 end

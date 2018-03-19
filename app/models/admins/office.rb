@@ -6,4 +6,11 @@ class Admins::Office < ApplicationRecord
 
   enum position: [:senator, :representative, :governor]
 
+  def politician_last_name
+    politician.try(:last_name)
+  end
+
+  def politician_last_name=(last_name)
+    #self.politician = Admins::Politician.find_by(last_name: last_name) if last_name.present?
+  end
 end
