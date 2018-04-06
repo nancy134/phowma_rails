@@ -1,31 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Admins Campaigns</h1>
+<div class="page-header">
+  <h2>Campaigns</h2>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Politician id</th>
-      <th>Election id</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="row">
+  <div class="col-md-6">
+    <%= link_to "New Campaign", new_admins_campaign_path, {:class => "btn btn-primary"} %>
+  </div>
+  <div>
+    <span class="pull-right">
+      <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#list_search">Search and Filter</button>
+    </span>
+  </div>
+</div>
 
-  <tbody>
-    <% @admins_campaigns.each do |admins_campaign| %>
-      <tr>
-        <td><%= admins_campaign.id %></td>
-        <td><%= admins_campaign.politician_id %></td>
-        <td><%= admins_campaign.election_id %></td>
-        <td><%= link_to 'Show', admins_campaign %></td>
-        <td><%= link_to 'Edit', edit_admins_campaign_path(admins_campaign) %></td>
-        <td><%= link_to 'Destroy', admins_campaign, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Admins Zip', new_admins_campaign_path %>
+<%= render 'list', admins_campaign: @admins_campaign %>

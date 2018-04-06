@@ -57,6 +57,7 @@ Rails.application.routes.draw do
         end
       end 
       resources :stores, only: [:index]
+      resources :offices, only: [:index]
       resources :posts, only: [:index]
       resources :settings, only: [:index]
       #resources :contacts, only: [:index, :new, :all]

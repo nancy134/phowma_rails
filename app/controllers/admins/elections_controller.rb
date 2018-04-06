@@ -6,7 +6,7 @@ class Admins::ElectionsController < ApplicationController
   # GET /admins/elections.json
   def index
     @search = Admins::Election.ransack(params[:q])
-    @admins_elections = @search.result.paginate(page: params[:page], per_page: 10)
+    @admins_elections = @search.result.includes(:office).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admins/elections/1
@@ -17,12 +17,16 @@ class Admins::ElectionsController < ApplicationController
   # GET /admins/elections/new
   def new
     @admins_election = Admins::Election.new
-    @admins_districts = Admins::District.all
+    @admins_election.build_office
   end
 
   # GET /admins/elections/1/edit
   def edit
-    @admins_districts = Admins::District.where(state_id: @admins_election.state_id)
+    Rails.logger.debug "NANCY: statei_id: #{@admins_election.office.state_id}"
+    Rails.logger.debug "NANCY: position: #{@admins_election.office.position}"
+    @admins_politicians = Admins::Politician.joins(:office).where(admins_offices: {state_id: @admins_election.office.state_id, position: Admins::Office.positions[@admins_election.office.position]})
+
+    @incumbents = Admins::Office.where(state_id: @admins_election.office.state_id, position: Admins::Office.positions[@admins_election.office.position])
   end
 
   # POST /admins/elections
@@ -73,6 +77,6 @@ class Admins::ElectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_election_params
-      params.require(:admins_election).permit(:position, :year, :date, :state_id, :district_id, :politician_id, :election_type, :wikipedia)
+      params.require(:admins_election).permit(:year, :date, :election_type, :wikipedia, :office_id, office_attributes: [ :position, :state_id, :district_id, :politician_id])
     end
 end

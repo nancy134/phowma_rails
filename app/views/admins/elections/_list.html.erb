@@ -4,6 +4,8 @@
       <th>Date</th>
       <th>State</th>
       <th>Position</th>
+      <th>District</th>
+      <th>Incumbent</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,12 +15,22 @@
     <% @admins_elections.each do |admins_election| %>
       <tr>
         <td><%= admins_election.date %></td>
-        <% if admins_election.state %>
-          <td><%= admins_election.state.name %></td>
+        <% if admins_election.office.state %>
+          <td><%= admins_election.office.state.name %></td>
         <% else %>
           <td></td>
         <% end %>
-        <td><%= admins_election.position %></td>
+        <td><%= admins_election.office.position %></td>
+        <% if admins_election.office.district %>
+          <td><%= admins_election.office.district.name %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <% if admins_election.office.politician %>
+          <td><%= admins_election.office.politician.last_name %>
+        <% else %>
+          <td></td>
+        <% end %>
         <td><%= link_to 'Show', admins_election %></td>
         <td><%= link_to 'Edit', edit_admins_election_path(admins_election) %></td>
         <td><%= link_to 'Destroy', admins_election, method: :delete, data: {confirm: 'Are you sure?' } %></td>

@@ -19,33 +19,53 @@
 
     <%= f.label :election_type, class: "col-md-2 control-label" %>
     <div class="col-md-2" >
-      <%= f.select(:election_type, Admins::Election.election_types.keys.map {|election_type| [election_type.titleize, election_type]}, {}, {class: 'form-control'}) %>
+      <%= f.select(:election_type, Admins::Election.election_types.keys.map {|election_type| [election_type.titleize, election_type]}, {:include_blank => 'Select election type'}, {class: 'form-control'}) %>
      </div>
 
   </div>
 
+
+  <%= f.fields_for :office do |o| %>
   <div class="form-group">
-    <%= f.label :position, class: "col-md-2 control-label" %>
+    <%= o.label :position, class: "col-md-2 control-label" %>
     <div class="col-md-2">
-      <%= f.select(:position, Admins::Election.positions.keys.map {|position| [position.titleize, position]}, {}, {class: 'form-control'}) %>
+      <%= o.select(:position, Admins::Office.positions.keys.map {|position| [position.titleize, position, {'enum'=>Admins::Office.positions[position]}]}, {:include_blank => 'Select position'}, {class: 'form-control' }) %>
     </div>
-    <%= f.label :district, class: "col-md-2 control-label" %>
+    <%= o.label :district, class: "col-md-2 control-label" %>
     <div class="col-md-2">
-      <%= collection_select(:admins_election, :district_id, @admins_districts, :id, :name, {:include_blank => 'Select District'}, {:class => "form-control", :disabled => admins_election.house? ? false : true}) %>
+      <% if @admins_election.office.state %>
+      <%= o.collection_select(:district_id, @admins_election.office.state.districts, :id, :name, {:include_blank => 'Select District'}, {:class => "form-control", :disabled => !@admins_election.office.representative?}) %>
+       <% else %>
+         <%= o.collection_select(:district_id, [], :id, :name, {:include_blank => 'Select district'}, {:class => 'form-control'}) %>
+       <% end %>
     </div>
   </div>
 
 
   <div class="form-group">
-    <%= f.label :state, class: "col-md-2 control-label" %>
+    <%= o.label :state, class: "col-md-2 control-label" %>
     <div class="col-md-2">
-      <%= collection_select(:admins_election, :state_id, Admins::State.all, :id, :name, {}, {:class=>'form-control'}) %>
+      <%= o.collection_select(:state_id, Admins::State.all, :id, :name, {:include_blank => 'Select state'}, {:class=>'form-control'}) %>
     </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label 'Incumbent', class: "col-md-2 control-label" %>
     <div class="col-md-2">
-      <%= collection_select(:admins_election, :politician_id, Admins::Politician.all, :id, :last_name, {}, {:class=>'form-control'}) %>
+      <% if @incumbents %>
+      <%= o.collection_select(:politician_id, @incumbents, :id, :incumbent_name, {:include_blank => 'Select incumbent'}, {:class=>'form-control'}) %>
+      <% else %>
+      <%= o.collection_select(:politician_id, [], :id, :name, {:include_blank => 'Select incumbent'}, {:class => 'form-control'}) %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
 
-     </div>
+  <div class="form-group">
+    <%= f.label :office_id, class: "col-md-2 control-label" %>
+    <div class="col-md-4">
+      <%= f.text_field :office_id, class: "form-control" %>
+    </div>
   </div>
 
   <div class="form-group">

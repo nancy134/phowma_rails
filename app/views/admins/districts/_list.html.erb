@@ -1,6 +1,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Id</td>
       <th>Name</th>
       <th>State</th>
       <th>Number</th>
@@ -11,6 +12,7 @@
     <%= render 'filter', search:@search %>
     <% @admins_districts.each do |admins_district| %>
       <tr>
+        <td><%= admins_district.id %></td>
         <td><%= admins_district.name %></td>
         <td><%= admins_district.state.name %></td>
         <td><%= admins_district.number %></td>

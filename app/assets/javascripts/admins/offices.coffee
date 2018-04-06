@@ -4,7 +4,7 @@
 $ -> 
   $(window).on "load", =>
     console.log("Office:OnLoad");
-    setDistricts();
+    #setDistricts();
 
   $("#admins_office_position").on "change", ->
     setDistricts();
@@ -12,12 +12,11 @@ $ ->
   $("#admins_office_state_id").on "change", ->
     setDistricts();
 
-  $(document).ready ->
-    $("#admins_office_politician_last_name").autocomplete({
-      source: $('#admins_office_politician_last_name').data('autocomplete-source')
-      select: (event, ui) -> 
-        console.log("ui.item.id: "+ui.item.id);
-        $('#admins_office_politician_id').val(ui.item.id);
+  $("#admins_office_incumbent_name").autocomplete({
+    source: $('#admins_office_incumbent_name').data('autocomplete-source')
+    select: (event, ui) -> 
+      console.log("ui.item.id: "+ui.item.id);
+      $('#admins_office_politician_id').val(ui.item.id);
     });
 
 setDistricts = () ->

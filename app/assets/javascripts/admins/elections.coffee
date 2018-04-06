@@ -1,64 +1,89 @@
 $ ->
-  $('#admins_election_state_id').on "change", ->
-    getDistricts();
-    getPoliticians();
+  $('#admins_election_office_attributes_state_id').on "change", ->
+    console.log("state:onChange");
+    setDistricts();
+    setOffice();
 
-  $('#admins_election_position').on "change", ->
-    $el = $('#admins_election_district_id');
-    if ($(this).val().indexOf('house') == 0)
-      $el.prop("disabled", false);
-      getDistricts();
-      getPoliticians();
-    else
-      $el.prop("disabled", true);
-      getPoliticians();
+  $('#admins_election_office_attributes_position').on "change", ->
+    console.log("position:onChange");
+    setDistricts();
+    setOffice();
+
+  $('#admins_election_office_attributes_district_id').on "change", ->
+    console.log("district:onChange");
+    setOffice();
+
+  $('#admins_election_office_attributes_politician_id').on "change", ->
+    console.log("politician:onChange");
+    office_id = $('#admins_election_office_attributes_politician_id').find('option:selected').val();
+    console.log("office_id: "+office_id);
+    $('#admins_election_office_id').val(office_id);    
 
   $('.pdate').datepicker({
     autoclose: true,
     format: "yyyy-mm-dd"
   });
 
+setDistricts = () ->
+  position = $('#admins_election_office_attributes_position').find('option:selected').val();
+  state_id = $('#admins_election_office_attributes_state_id').find('option:selected').val();
+  console.log("position: "+position+" state_id: "+state_id);
+  if (state_id && position && position.indexOf('representative') == 0)
+    $('#admins_election_office_attributes_district_id').prop("disabled",false);
+    getDistricts();
+  else
+    $('#admins_election_office_attributes_district_id').prop("disabled",true);
+
+setOffice = () ->
+  position = $('#admins_election_office_attributes_position').find('option:selected').val();
+  state_id = $('#admins_election_office_attributes_state_id').find('option:selected').val();
+  console.log("position: "+position+" state_id: "+state_id);
+  if (position && position.indexOf('representative') == 0)
+    district_id = $('#admins_election_office_attributes_district_id').find('option:selected').val();
+    if (state_id && position && district_id)
+      getOffice();
+  else
+    if (state_id && position)
+      getOffice(); 
+
+getOffice = () ->
+  position_enum = $('#admins_election_office_attributes_position').find('option:selected').attr('enum');
+  position = $('#admins_election_office_attributes_position').find('option:selected').val();
+  state_id = $('#admins_election_office_attributes_state_id').find('option:selected').val();
+  if (!position || !state_id)
+    return;
+  district_id = $('#admins_election_office_attributes_district_id').find('option:selected').val();
+  if (position.indexOf('representative') == 0 && district_id)
+    query = "?q[position_eq]="+position_enum+"&q[state_id_eq]="+state_id+"&q[district_id_eq]="+district_id;
+  else
+    query = "?q[position_eq]="+position_enum+"&q[state_id_eq]="+state_id;
+  $.ajax 
+    url: "/api/v1/offices"+query
+    type: "GET"
+    dataType: "json"
+    success: (data) ->
+      $el = $('#admins_election_office_attributes_politician_id');
+      $el.empty();
+      $el.append $('<option></option>').attr('value', "0").text('Select incumbent');
+      for i in [0...data.length] by 1
+        if (data[i].politician)
+          $el.append $('<option></option>').attr('value',data[i].id).text(data[i].politician.last_name);
+        else
+          $el.append $('<option></option>').attr('value',data[i].id).text('Vacant');
+    error: ->
+      console.log("error");
+
 getDistricts = () ->
-  state_id = $('#admins_election_state_id').find('option:selected').val();
+  state_id = $('#admins_election_office_attributes_state_id').find('option:selected').val();
   $.ajax
     url: "/api/v1/districts?state_id="+state_id
     type: "GET"
     dataType: "json"
     success: (data) ->
-      $el = $('#admins_election_district_id');
+      $el = $('#admins_election_office_attributes_district_id');
       $el.empty();
       $el.append $('<option></option>').attr('value', "0").text('Select district')
       for i in [0...data.length] by 1
         $el.append $('<option></option>').attr('value', data[i].id).text(data[i].name)
   error: ->
     console.log("Error getting districts")
-
-getPoliticians = () ->
-  state_id = $('#admins_election_state_id').find('option:selected').val();
-  district_id = $('#admins_election_district_id').find('option:selected').val();
-  position = $('#admins_election_position').find('option:selected').val();
-
-  query = "";
-  query = query.concat("q[state_id_eq]="+state_id+"&");
-
-  if (position == "senate")
-    query = query.concat("q[position_in][]=0&");
-  else if (position == "house")
-    query = query.concat("q[position_in][]=1&");
-    query = query.concat("q[district_id_eq][]="+district_id+"&");
-  else if (position == "governor")
-    query = query.concat("q[position_in][]=2&");
-
-
-  $.ajax
-    url: "/api/v1/politicians?"+query
-    type: "GET"
-    dataType: "json"
-    success: (data) ->
-      $el = $('#admins_election_politician_id');
-      $el.empty();
-      $el.append $('<option></option>').attr('value', "0").text('Select politician')
-      for i in [0...data.length] by 1
-        $el.append $('<option></option>').attr('value', data[i].id).text(data[i].last_name)
-  error: ->
-    console.log("Error getting politicians")

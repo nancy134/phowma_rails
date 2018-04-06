@@ -1,4 +1,4 @@
-<%= form_for(admins_campaign) do |f| %>
+<%= form_for @admins_campaign, :html => {:class => "form-horizontal center"} do |f| %>
   <% if admins_campaign.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(admins_campaign.errors.count, "error") %> prohibited this admins_campaign from being saved:</h2>
@@ -11,10 +11,42 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :politician_id %>
-    <%= f.number_field :politician_id %>
+  <div class="form-group">
+    <%= f.label :politician, class: "col-md-2 control-label" %>
+    <%= f.hidden_field :politician_id %>
+    <div class="col-md-2">
+      <%= f.text_field :politician_last_name, data: {autocomplete_source: autocomplete_api_v1_politicians_path} %>
+    </div>
   </div>
+
+  <div class="form-group">
+    <%= f.label :date, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= f.text_field :date, class: "pdate form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :position, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= f.select(:position, Admins::Office.positions.keys.map {|position| [position.titleize, position]}, {}, {class: 'form-control'}) %>
+    </div>
+  </div> 
+
+  <div class="form-group">
+    <%= f.label :state, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= collection_select(:admins_campaign, :state_id, Admins::State.all, :id, :name, {}, {:class => 'form-control'}) %>
+    </div>
+  </div>
+
+  <div class="form=group">
+    <%= f.label :district, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= collection_select(:admins_campaign, :district_id, Admins::District.all, :id, :name, {include_blank: 'Select district'}, {class: 'form-control', :disabled=>true}) %>
+    </div>
+  </div>
+  
 
   <div class="field">
     <%= f.label :election_id %>

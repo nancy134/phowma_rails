@@ -17,7 +17,6 @@ class Admins::OfficesController < ApplicationController
   # GET /admins/offices/new
   def new
     @admins_office = Admins::Office.new
-    @admins_districts = Admins::District.all
   end
 
   # GET /admins/offices/1/edit
@@ -80,6 +79,6 @@ class Admins::OfficesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_office_params
-      params.require(:admins_office).permit(:position, :state_id, :district_id, :politician_id,:politician_last_name)
+      params.require(:admins_office).permit(:position, :state_id, :district_id, :politician_id,:incumbent_name)
     end
 end

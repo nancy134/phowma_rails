@@ -1,6 +1,7 @@
 <table class="table">
   <thead>
     <tr>
+      <td>Id</td>
       <th><%= sort_link(@search, :name, "Name") %></th>
       <th><%= sort_link(@search, :abbreviation, "Abbreviation") %></th>
       <th><%= sort_link(@search, :registered, "Check Registration") %></th>
@@ -12,6 +13,7 @@
     <%= render 'filter', search:@search %>
     <% @admins_states.each do |admins_state| %>
       <tr>
+        <td><%= admins_state.id %></td>
         <td><%= admins_state.name %></td>
         <td><%= admins_state.abbreviation %></td>
         <td><%= admins_state.registered %></td>

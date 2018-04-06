@@ -1,8 +1,10 @@
 <%= search_form_for @search do |f| %>
 <tr id="list_search" class="collapse in">
   <td><%= f.text_field :date_eq %></td>
-  <td><%= f.select :state_id_eq, options_from_collection_for_select(Admins::State.all, "id", "name"), include_blank: true %></td>
-  <td><%= f.select :position_eq, Admins::Election.positions.to_a.map { |w| [w[0].humanize, w[1]] }, {:include_blank => true} %></td>
+  <td><%= f.select :office_state_id_eq, options_from_collection_for_select(Admins::State.all, "id", "name"), include_blank: true %></td>
+  <td><%= f.select :office_position_eq, Admins::Office.positions.to_a.map { |w| [w[0].humanize, w[1]] }, {:include_blank => true} %></td>
+  <td></td>
+  <td></td>
   <td><%= f.submit "Search" %></td>
   <td></td>
   <td></td>
