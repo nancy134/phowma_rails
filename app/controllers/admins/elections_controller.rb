@@ -22,15 +22,11 @@ class Admins::ElectionsController < ApplicationController
 
   # GET /admins/elections/1/edit
   def edit
-    Rails.logger.debug "NANCY: statei_id: #{@admins_election.office.state_id}"
-    Rails.logger.debug "NANCY: position: #{@admins_election.office.position}"
-    @admins_politicians = Admins::Politician.joins(:office).where(admins_offices: {state_id: @admins_election.office.state_id, position: Admins::Office.positions[@admins_election.office.position]})
+    @admins_politicians = Admins::Politician.joins(:office).where(admins_offices: {state_id: @admins_election.office.state_id, position: Admins::Office.positions[@admins_election.office.position], district_id: @admins_election.office.district_id})
 
-    @incumbents = Admins::Office.where(state_id: @admins_election.office.state_id, position: Admins::Office.positions[@admins_election.office.position])
+    @incumbents = Admins::Office.where(state_id: @admins_election.office.state_id, position: Admins::Office.positions[@admins_election.office.position], district_id: @admins_election.office.district_id)
   end
 
-  # POST /admins/elections
-  # POST /admins/elections.json
   def create
     @admins_election = Admins::Election.new(admins_election_params)
 
@@ -77,6 +73,6 @@ class Admins::ElectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_election_params
-      params.require(:admins_election).permit(:year, :date, :election_type, :wikipedia, :office_id, office_attributes: [ :position, :state_id, :district_id, :politician_id])
+      params.require(:admins_election).permit(:year, :date, :election_type, :wikipedia, :office_id, :incumbent_id, office_attributes: [:position, :state_id, :district_id])
     end
 end

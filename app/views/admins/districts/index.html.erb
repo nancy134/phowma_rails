@@ -1,14 +1,16 @@
 <div class="page-header">
   <h2>Districts</h2>
 </div>
-<br>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= link_to 'New District', new_admins_district_path, {:class => "btn btn-primary"} %>
+  </div>
+  <div class="col-md-6">
+    <span class="pull-right">
+      <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#list_search">Search and Filter</button>
+    </span>
+  </div>
+</div>
 <%= render 'list', admins_district: @admins_district %>
 
-<%= form_tag import_admins_districts_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import" %>
-<% end %>
-
-<br>
-
-<%= link_to 'New Admins District', new_admins_district_path %>

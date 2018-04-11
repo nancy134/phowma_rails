@@ -16,37 +16,27 @@ class Admins::CampaignsController < ApplicationController
   # GET /admins/campaigns/new
   def new
     @admins_campaign = Admins::Campaign.new
+    @admins_campaign.build_politician
+    @admins_campaign.build_election.build_office
   end
 
   # GET /admins/campaigns/1/edit
   def edit
+    @incumbents = Admins::Office.where(state_id: @admins_campaign.election.office.state_id, position: Admins::Office.positions[@admins_campaign.election.office.position], district_id: @admins_campaign.election.office.district_id)
+    @dates = Admins::Election.where(office_id: @admins_campaign.election.office.id)
   end
 
   # POST /admins/campaigns
   # POST /admins/campaigns.json
   def create
-    election = Admins::Election.where(
-      date: admins_campaign_params[:date],
-      state_id: admins_campaign_params[:state_id],
-      position: admins_campaign_params[:position],
-      district_id: admins_campaign_params[:district_id]).first
-    Rails.logger.debug "election: #{election}"
     @admins_campaign = Admins::Campaign.new(admins_campaign_params)
-    if (election)
-      @admins_campaign.election_id = election.id
-      respond_to do |format|
-        if @admins_campaign.save
-          format.html { redirect_to @admins_campaign, notice: 'Campaign was successfully created.' }
-          format.json { render :show, status: :created, location: @admins_campaign }
-        else
-          format.html { render :new }
-          format.json { render json: @admins_campaign.errors, status: :unprocessable_entity }
-        end
-      end
-    else
-      respond_to do |format|
-        format.html {render :new}
-        format.json {render json: @admins_campaign.errors, status: :unprocessable_entity }      
+    respond_to do |format|
+      if @admins_campaign.save
+        format.html { redirect_to @admins_campaign, notice: 'Campaign was successfully created.' }
+        format.json { render :show, status: :created, location: @admins_campaign }
+      else
+        format.html { render :new }
+        format.json { render json: @admins_campaign.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -83,6 +73,6 @@ class Admins::CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_campaign_params
-      params.require(:admins_campaign).permit(:politician_id, :election_id, :position, :state_id, :district_id, :date, :politician_last_name)
+      params.require(:admins_campaign).permit(:date_id, :candidate_name, :politician_id, :election_id, election_attributes: [:date, :office_id, office_attributes: [:state_id, :district_id, :position, :politician_id]])
     end
 end

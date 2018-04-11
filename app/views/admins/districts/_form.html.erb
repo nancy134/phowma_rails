@@ -1,4 +1,4 @@
-<%= form_for(admins_district) do |f| %>
+<%= form_for @admins_district, :html => {:class => "form-horizontal center"} do |f| %>
   <% if admins_district.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(admins_district.errors.count, "error") %> prohibited this admins_district from being saved:</h2>
@@ -11,20 +11,26 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :state_id %>
-    <%= collection_select(:admins_district, :state_id, Admins::State.all, :id, :name) %>
+  <div class="form-group">
+    <%= f.label :state_id, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= f.collection_select(:state_id, Admins::State.all, :id, :name, {:include_blank => 'Select state'}, {:class => 'form-control'})%>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :number %>
-    <%= f.number_field :number %>
+  <div class="form-group">
+    <%= f.label :number, class: "col-md-2 control-label" %>
+    <div class="col-md-2">
+      <%= f.number_field :number, class: "form-control" %>
+    </div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => "btn btn-primary" %>
   </div>
 <% end %>

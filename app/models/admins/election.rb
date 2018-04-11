@@ -6,25 +6,26 @@ class Admins::Election < ApplicationRecord
 
   accepts_nested_attributes_for :office
   before_validation :set_selected_office
-  #validates_associated :office
 
-  attr_accessor :position, :office_attributes
-  attr_accessor :state_id, :office_attributes
-  attr_accessor :district_id, :office_attributes
-  attr_accessor :politician_id, :office_attributes
+  #attr_accessor :position, :office_attributes
+  #attr_accessor :state_id, :office_attributes
+  #attr_accessor :district_id, :office_attributes
+  attr_accessor :incumbent_id
 
   has_many :campaigns, class_name: "Admins::Campaign"
   has_many :politicians, through: :campaigns
 
   enum election_type: [:primary, :general, :runoff]
   def election_name
-    return self.position + " " + self.year.to_s
+    return "test" 
   end
 
   def set_selected_office
-    #self.office = Admins::Office.where(position: office_attributes[:position], state_id: office_attributes[:state_id], district_id: office_attributes[:district_id], politician_id: office_attributes[:politician_id]).first
-
-    self.office = Admins::Office.find(office_id)
-    Rails.logger.debug "NANCY: office: #{self.office}"
+    if (incumbent_id)
+      self.office = Admins::Office.find(incumbent_id)
+    end
+    if (office_id)
+      self.office = Admins::Office.find(office_id)
+    end
   end
 end

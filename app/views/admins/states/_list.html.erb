@@ -4,7 +4,6 @@
       <td>Id</td>
       <th><%= sort_link(@search, :name, "Name") %></th>
       <th><%= sort_link(@search, :abbreviation, "Abbreviation") %></th>
-      <th><%= sort_link(@search, :registered, "Check Registration") %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,7 +15,6 @@
         <td><%= admins_state.id %></td>
         <td><%= admins_state.name %></td>
         <td><%= admins_state.abbreviation %></td>
-        <td><%= admins_state.registered %></td>
         <td><%= link_to 'Show', admins_state %></td>
         <td><%= link_to 'Edit', edit_admins_state_path(admins_state) %></td>
         <td><%= link_to 'Destroy', admins_state, method: :delete, data: { confirm: 'Are you sure?' } %></td>

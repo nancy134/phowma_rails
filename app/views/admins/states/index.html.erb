@@ -13,8 +13,3 @@
 
 <%= render 'list', admins_state: @admins_state %>
 
-<br>
-<%= form_tag import_admins_states_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import" %>
-<% end %>

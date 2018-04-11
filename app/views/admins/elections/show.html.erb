@@ -2,17 +2,21 @@
 
 <p>
   <strong>Position:</strong>
-  <%= @admins_election.position %>
-</p>
-
-<p>
-  <strong>Year:</strong>
-  <%= @admins_election.year %>
+  <%= @admins_election.office.position %>
 </p>
 
 <p>
   <strong>Date:</strong>
   <%= @admins_election.date %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @admins_election.office.state.name %>
+</p>
+<p>
+  <strong>Incumbent:</strong>
+  <%= @admins_election.office.incumbent_name %>
 </p>
 
 <%= link_to 'Edit', edit_admins_election_path(@admins_election) %> |

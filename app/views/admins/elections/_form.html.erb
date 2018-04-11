@@ -48,24 +48,19 @@
       <%= o.collection_select(:state_id, Admins::State.all, :id, :name, {:include_blank => 'Select state'}, {:class=>'form-control'}) %>
     </div>
   </div>
+  <% end %>
+
 
   <div class="form-group">
     <%= f.label 'Incumbent', class: "col-md-2 control-label" %>
     <div class="col-md-2">
       <% if @incumbents %>
-      <%= o.collection_select(:politician_id, @incumbents, :id, :incumbent_name, {:include_blank => 'Select incumbent'}, {:class=>'form-control'}) %>
+      <%= f.collection_select(:office_id, @incumbents, :id, :incumbent_name, {:include_blank => 'Select incumbent'}, {:class=>'form-control'}) %>
       <% else %>
-      <%= o.collection_select(:politician_id, [], :id, :name, {:include_blank => 'Select incumbent'}, {:class => 'form-control'}) %>
+      <%= f.collection_select(:office_id, [], :id, :name, {:include_blank => 'Select incumbent'}, {:class => 'form-control'}) %>
       <% end %>
     </div>
-  </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :office_id, class: "col-md-2 control-label" %>
-    <div class="col-md-4">
-      <%= f.text_field :office_id, class: "form-control" %>
-    </div>
+    <%= f.hidden_field :incumbent_id %>
   </div>
 
   <div class="form-group">

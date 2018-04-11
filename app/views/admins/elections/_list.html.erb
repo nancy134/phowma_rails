@@ -1,6 +1,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Id</th>
       <th>Date</th>
       <th>State</th>
       <th>Position</th>
@@ -14,6 +15,7 @@
     <%= render 'filter', search:@search %>
     <% @admins_elections.each do |admins_election| %>
       <tr>
+        <td><%= admins_election.id %></td>
         <td><%= admins_election.date %></td>
         <% if admins_election.office.state %>
           <td><%= admins_election.office.state.name %></td>

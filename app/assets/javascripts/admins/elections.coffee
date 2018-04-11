@@ -1,4 +1,10 @@
 $ ->
+  $(window).on "load", ->
+    console.log("Election.OnLoad");
+    if ($('#elections').length)
+      office_id = $('#admins_election_office_id').find('option:selected').val();
+      $('#admins_election_incumbent_id').val(office_id);
+   
   $('#admins_election_office_attributes_state_id').on "change", ->
     console.log("state:onChange");
     setDistricts();
@@ -13,11 +19,11 @@ $ ->
     console.log("district:onChange");
     setOffice();
 
-  $('#admins_election_office_attributes_politician_id').on "change", ->
-    console.log("politician:onChange");
-    office_id = $('#admins_election_office_attributes_politician_id').find('option:selected').val();
+  $('#admins_election_office_id').on "change", ->
+    console.log("office_id:onChange");
+    office_id = $('#admins_election_office_id').find('option:selected').val();
     console.log("office_id: "+office_id);
-    $('#admins_election_office_id').val(office_id);    
+    $('#admins_election_incumbent_id').val(office_id);
 
   $('.pdate').datepicker({
     autoclose: true,
@@ -57,12 +63,13 @@ getOffice = () ->
     query = "?q[position_eq]="+position_enum+"&q[state_id_eq]="+state_id+"&q[district_id_eq]="+district_id;
   else
     query = "?q[position_eq]="+position_enum+"&q[state_id_eq]="+state_id;
+  console.log("query: "+query);
   $.ajax 
     url: "/api/v1/offices"+query
     type: "GET"
     dataType: "json"
     success: (data) ->
-      $el = $('#admins_election_office_attributes_politician_id');
+      $el = $('#admins_election_office_id');
       $el.empty();
       $el.append $('<option></option>').attr('value', "0").text('Select incumbent');
       for i in [0...data.length] by 1
