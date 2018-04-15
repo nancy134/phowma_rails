@@ -71,8 +71,13 @@ class Api::V1::DistrictsController < Api::V1::BaseController
         end
     
         #User address,city,state to determine District
-        if (params[:address] && params[:city] && params[:state])
-            query = "#{params[:address]} #{params[:city]} #{params[:state]}"
+        if (params[:faddress] || (params[:address] && params[:city] && params[:state]))
+            if (params[:faddress])
+              query = "#{params[:faddress]}"
+            else
+              query = "#{params[:address]} #{params[:city]} #{params[:state]}"
+            end
+          
             encoded_query = URI.encode(query)
             url = 'https://www.googleapis.com'
             conn = Faraday.new(:url => url) do |faraday|
@@ -80,14 +85,11 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                 faraday.adapter Faraday.default_adapter
             end
             response = conn.get '/civicinfo/v2/representatives', { :key => 'AIzaSyCnf229S5uGfG2gRpnE6npbHXZZgOxOyNo', :address => query, :includeOffices => 'false', :roles => 'legislatorLowerBody' }
-            Rails.logger.debug "NANCY: response.body: #{response.body}"
             repo_info = JSON.parse(response.body)
             if (repo_info['divisions'])
                 if (repo_info['divisions'].keys.first)
-                    Rails.logger.debug "NANCY: keys.first: #{repo_info['divisions'].keys.first}"
                     key = repo_info['divisions'].keys.first
                     splits =key.split(':')
-                    Rails.logger.debug "NANCY: splits.length: #{splits.length}"
                     if (splits.length == 4)
                         state_record = Admins::State.where(abbreviation: params[:state]).first
                         district_record = Admins::District.where(number: splits[3], state_id: state_record.id).first

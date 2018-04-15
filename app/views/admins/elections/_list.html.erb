@@ -17,20 +17,26 @@
       <tr>
         <td><%= admins_election.id %></td>
         <td><%= admins_election.date %></td>
-        <% if admins_election.office.state %>
-          <td><%= admins_election.office.state.name %></td>
+        <% if admins_election.office %>
+          <% if admins_election.office.state %>
+            <td><%= admins_election.office.state.name %></td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <td><%= admins_election.office.position %></td>
+          <% if admins_election.office.district %>
+            <td><%= admins_election.office.district.name %></td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <% if admins_election.office.politician %>
+            <td><%= admins_election.office.politician.last_name %>
+          <% else %>
+            <td></td>
+          <% end %>
         <% else %>
           <td></td>
-        <% end %>
-        <td><%= admins_election.office.position %></td>
-        <% if admins_election.office.district %>
-          <td><%= admins_election.office.district.name %></td>
-        <% else %>
           <td></td>
-        <% end %>
-        <% if admins_election.office.politician %>
-          <td><%= admins_election.office.politician.last_name %>
-        <% else %>
           <td></td>
         <% end %>
         <td><%= link_to 'Show', admins_election %></td>
