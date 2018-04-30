@@ -12,7 +12,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
     end
     def show
       @district = Admins::District.find(params[:id])
-      render json: @district, serializer: Api::V1::DistrictSerializer, include: ['politician']
+      render json: @district, serializer: Api::V1::DistrictSerializer, include: ['politician', 'state']
     end
     def find
         output = {:message => "Not enough address data to determine congressional district"}
@@ -26,7 +26,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
             districts = Admins::District.where(state_id: state.id)
             if (districts.length == 1)
                 Rails.logger.debug "Got here"
-                render json: districts[0], serializer: Api::V1::DistrictSerializer, include: ['politician'] and return
+                render json: districts[0], serializer: Api::V1::DistrictSerializer, include: ['politician', 'state'] and return
             end
         end
     
@@ -58,7 +58,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                             state = district_record.state.abbreviation
                             state_id = district_record.state.id
                         end
-                        render json: district_record, serializer: Api::V1::DistrictSerializer, include: ['politician'] and return
+                        render json: district_record, serializer: Api::V1::DistrictSerializer, include: ['politician', 'state'] and return
                     else
                         render json: { :message => 'Could not find district for this address[1]'} and return
                     end
