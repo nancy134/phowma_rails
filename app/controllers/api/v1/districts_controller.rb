@@ -10,6 +10,10 @@ class Api::V1::DistrictsController < Api::V1::BaseController
         end
         render json: districts, each_serializer: Api::V1::DistrictSerializer
     end
+    def show
+      @district = Admins::District.find(params[:id])
+      render json: @district, serializer: Api::V1::DistrictSerializer, include: ['politician']
+    end
     def find
         output = {:message => "Not enough address data to determine congressional district"}
         #Use the State to determine District
@@ -21,52 +25,8 @@ class Api::V1::DistrictsController < Api::V1::BaseController
             end
             districts = Admins::District.where(state_id: state.id)
             if (districts.length == 1)
-                output = {:id => districts[0].id, :district => districts[0].name, :state => state.abbreviation, :state_id => state.id}
-                render json: output and return
-            end
-        end
-    
-        #Use the Zip to determine District
-        if (params[:zip])
-            zips = Admins::Zip.where(code: params[:zip])
-            if (zips.empty?)
-                url = 'https://congress.api.sunlightfoundation.com'
-                conn = Faraday.new(:url => url) 
-                response = conn.get '/districts/locate', { :apikey => '123', :zip => params[:zip] }
-                repo_info = {:count => 0}
-                if (response.success?) 
-                  repo_info = JSON.parse(response.body)
-                end
-                if (repo_info["count"] > 0)
-                    zip_record = Admins::Zip.new(code: params[:zip])
-                    repo_info['results'].each do |item|
-                        state_record = Admins::State.where(abbreviation: item['state']).first
-                        district_record = Admins::District.where(number: item['district'], state_id: state_record.id).first
-                        if (district_record)
-                            zip_record.districts << district_record;
-                        else
-                            output = {:message => 'District not found in the database'}
-                        end
-                    end
-                    zip_record.save
-                    if (zip_record.districts.length > 1)
-                        output = {:message => 'Zip code cannot be used to determine district because there are multiple districts for this zip code.'}
-                    elsif (zip_record.districts.length == 1)
-                        output = {:id => zip_record.districts[0].id, :district => zip_record.districts[0].number, :state => zip_record.districts[0].state.abbreviation, :state_id => zip_record.districts[0].state.id}
-                        render json: output and return
-                    else
-                        output = {:message => 'Zip code may not be valid.  It was not found in the congressional database[1]'}
-                    end
-                else
-                    output = {:message => 'Zip code may not be valid.  It was not found in the congressional database[2]'}
-                end
-            else
-                if (zips[0].districts.length == 1)
-                    output = {:id => zips[0].districts[0].id, :district => zips[0].districts[0].number, :state => zips[0].districts[0].state.abbreviation, :state_id => zips[0].districts[0].state.id}
-                    render json: output and return
-                else
-                    output = {:message => "Zip code cannot be used to determine district because there are multiple districts for this code"}
-                end  
+                Rails.logger.debug "Got here"
+                render json: districts[0], serializer: Api::V1::DistrictSerializer, include: ['politician'] and return
             end
         end
     
@@ -91,14 +51,14 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                     key = repo_info['divisions'].keys.first
                     splits =key.split(':')
                     if (splits.length == 4)
-                        state_record = Admins::State.where(abbreviation: params[:state]).first
+                        state_record = Admins::State.where(abbreviation: repo_info['normalizedInput']['state']).first
                         district_record = Admins::District.where(number: splits[3], state_id: state_record.id).first
                         state = ""
                         if (district_record) 
                             state = district_record.state.abbreviation
                             state_id = district_record.state.id
                         end
-                        render json: {:id => district_record.id, :district => splits[3], :state => state, :state_id => state_id} and return
+                        render json: district_record, serializer: Api::V1::DistrictSerializer, include: ['politician'] and return
                     else
                         render json: { :message => 'Could not find district for this address[1]'} and return
                     end

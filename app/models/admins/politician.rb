@@ -55,6 +55,9 @@ class Admins::Politician < ApplicationRecord
     "http:" + avatar.url(:medium)
   end
 
+  def avatar_original
+    "http:" + avatar.url(:original)
+  end
   def name
     "#{first_name} #{last_name}"
   end
