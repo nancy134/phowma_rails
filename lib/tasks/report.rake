@@ -15,6 +15,25 @@ namespace :report do
     end
   end
 
+  desc 'Districts for maps'
+  task districts_for_maps: :environment do
+    file = 'districts.csv'
+    header = 'id'
+    File.open(file, 'w') do |csv|
+      csv << header
+      csv << "\n"
+      Admins::District.all.each do |district|
+        if (district.number < 10)
+          csv << "#{district.state.abbreviation}0#{district.number}"
+          csv << "\n"
+        else
+          csv << "#{district.state.abbreviation}#{district.number}"
+          csv << "\n"
+        end
+      end
+    end
+  end
+
   desc 'Politician report'
   task politicians: :environment do
     file = "politicians.csv"

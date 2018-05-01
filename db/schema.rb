@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180310175941) do
+ActiveRecord::Schema.define(version: 20180501122329) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -62,6 +62,10 @@ ActiveRecord::Schema.define(version: 20180310175941) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "number"
+    t.decimal  "longitude1"
+    t.decimal  "longitude2"
+    t.decimal  "latitude1"
+    t.decimal  "latitude2"
     t.index ["state_id"], name: "index_admins_districts_on_state_id"
   end
 

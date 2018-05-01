@@ -1,4 +1,39 @@
 namespace :data do
+
+  desc "map coordinates"
+  task map_coordinates: :environment do
+    require 'csv'
+    csv_text = File.read('/tmp/map.csv')
+    csv = CSV.parse(csv_text, :headers => true)
+    csv.each do |row|
+      map_row = row.to_hash
+      abbr = map_row["abbr"]
+      district_number = map_row["district"]
+      longitude1 = map_row["longitude1"].to_f
+      latitude1 = map_row["latitude1"].to_f
+      longitude2 = map_row["longitude2"].to_f
+      latitude2 = map_row["latitude2"].to_f
+
+      #puts "#{abbr},#{district_number},#{longitude1},#{latitude1},#{longitude2},#{latitude2}"
+      state = Admins::State.where(abbreviation: abbr).first
+      if (state)
+        district = Admins::District.where(state_id: state.id, number: district_number).first
+        if (district)
+          puts "District found: #{district.id}"
+          district.longitude1 = longitude1
+          district.latitude1 = latitude1
+          district.longitude2 = longitude2
+          district.latitude2 = latitude2
+          district.save
+        else
+          #puts "District not found"
+        end
+      else
+        #puts "State not found"
+      end
+    end
+  end
+
   desc "fix district"
   task fix_district: :environment do
     Admins::Politician.all.each do |politician|
