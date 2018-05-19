@@ -5,7 +5,7 @@ class Admins::CampaignsController < ApplicationController
   # GET /admins/campaigns.json
   def index
     @search = Admins::Campaign.ransack(params[:q])
-    @admins_campaigns = @search.result.paginate(page: params[:page], per_page: 10)
+    @admins_campaigns = @search.result.includes(:election => :office).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admins/campaigns/1

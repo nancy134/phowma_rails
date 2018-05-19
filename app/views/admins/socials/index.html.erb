@@ -3,4 +3,12 @@
 <p>Facebook token: </p><%= @setting.facebook_token %>
 <% end %>
 <br/>
-<%= link_to('Connect to Facebook', connect_admins_socials_path) %>
+<a class="btn btn-block btn-social btn-facebook">
+  <span class="fa fa-facebook"></span>Sign in with Facebook
+</a>
+<br/>
+ <a class="btn btn-block btn-social btn-twitter">
+    <span class="fa fa-twitter"></span> Sign in with Twitter
+  </a>
+<br/>
+<%= link_to "Sign in with Facebook", connect_admins_socials_path %>
