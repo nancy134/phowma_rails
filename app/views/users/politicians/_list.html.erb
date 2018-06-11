@@ -1,0 +1,29 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= sort_link(@search, :id, "Id") %></th>
+      <th><%= sort_link(@search, :last_name, "Last Name") %></th>
+      <th><%= sort_link(@search, :first_name, "First Name") %></th>
+      <th>Twitter</th>
+      <th>Facebook</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render 'filter', search:@search %>
+    <% @users_politicians.each do |users_politician| %>
+      <tr>
+        <td><%= users_politician.id %></td>
+        <td><%= users_politician.last_name %></td>
+        <td><%= users_politician.first_name %></td>
+        <td><%= users_politician.twitter %></td>
+        <td><%= users_politician.facebook %></td>
+        <td><%= link_to 'Show', controller: 'users/politicians', action: "show", id:users_politician %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @users_politicians %>
+<br>
+

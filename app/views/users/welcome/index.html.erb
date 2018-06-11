@@ -1,4 +1,9 @@
-<h1>Welcome#index</h1>
-<a class="btn btn-block btn-social btn-facebook">
-  <span class="fa fa-facebook"></span> Sign in with Facebook 
-</a>
+
+<div class="row">
+  <div class="col-md-4">
+    <%= link_to '<span class="fa fa-facebook"></span> Sign in with Facebook'.html_safe, connect_admins_socials_path, {class: "btn btn-social btn-facebook"} %>
+  </div>
+  <div class="col-md-8">
+  <p>Hello</p>
+  </div>
+</div>

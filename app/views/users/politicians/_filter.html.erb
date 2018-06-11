@@ -1,0 +1,13 @@
+ 
+  <%= search_form_for @search, url: users_politicians_path do |f| %>
+  <tr id="list_search" class="collapse in">
+    <td><%= f.text_field :id_eq %></td>
+    <td><%= f.text_field :last_name_cont %></td>
+    <td><%= f.text_field :first_name_cont %></td>
+    <td><%= f.text_field :twitter %></td>
+    <td><%= f.text_field :facebook %></td>
+    <td><%= f.submit "Search" %></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <% end %>

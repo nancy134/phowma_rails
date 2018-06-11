@@ -46,6 +46,10 @@ Rails.application.routes.draw do
   get 'admins/welcome/index'
   root 'users/welcome#index'
 
+  namespace :users do
+    resources :politicians
+  end
+
   namespace :api do
     namespace :v1 do
       resources :states, only: [:index]
