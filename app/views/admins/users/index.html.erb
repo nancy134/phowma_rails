@@ -1,4 +1,14 @@
 <% @users = Admin.all %>
 <% @users.each do |user| %>
-  <%= user.email %><br/>
+  <p>
+  <strong>Email:</strong>
+  <%= user.email %>
+  </p>
+
+  <p>
+  <strong>Provider:</strong>
+  <%= user.provider %>
+  </p>
+
+
 <% end %>

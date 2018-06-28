@@ -16,7 +16,13 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
    case resource
    when User
-    '/users/welcome/index' 
+    if (cookies[:politician_id])
+     politician_id = cookies[:politician_id]
+     cookies.delete :politician_id
+     return "/users/politicians/#{politician_id}"
+    else
+      return "/users/politicians"
+    end
    when Admin
     session["admin_return_to"] || '/admins/welcome/index'
   end

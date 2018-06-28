@@ -13,6 +13,8 @@ class Users::PoliticiansController < ApplicationController
   # GET /users/politicians/1
   # GET /users/politicians/1.json
   def show
+   Rails.logger.debug "Show: id: #{params[:id]}"
+   cookies[:politician_id] = params[:id]
   end
 
   private

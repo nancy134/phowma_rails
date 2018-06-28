@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   namespace :admins do
     resources :posts
   end
-  get 'omniauth/facebook/callback' => 'admins/socials#callback'
+  #get 'omniauth/facebook/callback' => 'admins/socials#callback'
   namespace :users do
     resources :contacts
   end
@@ -38,13 +38,16 @@ Rails.application.routes.draw do
     end
   end
   devise_for :users, controllers: { registrations: 'users/registrations'}
+  devise_scope :user do
+    get "/omniauth/facebook/callback" => "users/omniauth_callbacks#facebook"
+  end
   devise_for :admins, :controllers => { :registrations => 'admins/registrations'}
   as :admin do
     # Define routes for Admin within this block.
   end
-  get 'users/welcome/index'
+  #get 'users/politicians'
   get 'admins/welcome/index'
-  root 'users/welcome#index'
+  root 'users/politicians#index'
 
   namespace :users do
     resources :politicians
