@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock "3.9.1"
+lock "3.11.0"
 
 set :application, "phowma_rails"
 set :repo_url, "git@github.com:nancy134/phowma_rails.git"
