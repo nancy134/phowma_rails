@@ -1,6 +1,6 @@
 class Api::V1::ContactsController < Api::V1::BaseController
   include DeviseTokenAuth::Concerns::SetUserByToken
-  before_filter :set_response_headers
+  before_action :set_response_headers
   before_action :authenticate_user!
   def index
     contacts = paginate Users::Contact.all, per_page: 10
