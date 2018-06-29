@@ -14,6 +14,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require jquery.turbolinks
+//= require popper
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core
 //= require_tree .

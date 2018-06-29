@@ -7,58 +7,46 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
-  <body id="<%= controller_name %>" class="<%= action_name %>">
-
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
       <a class="navbar-brand" href="#">Phowma</a>
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li class="<%= 'active' if params[:controller] == 'admins/welcome' %>"> <%= link_to "Welcome", admins_welcome_index_path %> </li>
-        <li class="<%= 'active' if params[:controller] == 'admins/states' %>"> <%= link_to "States", admins_states_path %> </li>
-        <li class="<%= 'active' if params[:controller] == 'admins/districts' %>"> <%= link_to "Districts", admins_districts_path %> </li>
-        <li class="<%= 'active' if params[:controller] == 'admins/politicians' %>"><%= link_to "Politicians", admins_politicians_path %></li>
-        <li class="<%= 'active' if params[:controller] == 'admins/offices' %>"> <%= link_to "Offices", admins_offices_path %> </li>
-        <li class="<%= 'active' if params[:controller] == 'admins/elections' %>"> <%= link_to "Elections", admins_elections_path %> </li>
-        <li class="<%= 'active' if params[:controller] == 'admins/campaigns' %>"> <%= link_to "Campaigns", admins_campaigns_path %> </li>
-        <li class="<%= 'active' if params[:controller] == 'admins/election_results' %>"> <%= link_to "Results", admins_election_results_path %></li>
-        <li class="<%= 'active' if params[:controller] == 'admins/area_codes' %>"> <%= link_to "Area Codes", admins_area_codes_path %></li>
-        <li class="<%= 'active' if params[:controller] == 'admins/socials' %>"> <%= link_to "Socials", admins_socials_path %></li>
-        <li class="<%= 'active' if params[:controller] == 'admins/posts' %>"> <%= link_to "Posts", admins_posts_path %></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-<% if admin_signed_in? %>
-  <li>
-  <%= link_to('Logout', destroy_admin_session_path, :method => :delete) %>        
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Login', new_admin_session_path)  %>  
-  </li>
-<% end %>        
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-link <%= 'active' if params[:controller] == 'admins/states' %>"> <%= link_to "States", admins_states_path %></li>
+          <li class="nav-link <%= 'active' if params[:controller] == 'admins/districts' %>"> <%= link_to "Districts", admins_districts_path %></li>
+          <li class="nav-link <%= 'active' if params[:controller] == 'admins/politicians' %>"> <%= link_to "Politicians", admins_politicians_path %></li>
+          <li class="nav-link <%= 'active' if params[:controller] == 'admins/offices' %>"> <%= link_to "Offices", admins_offices_path %></li>
+          <li class="nav-link <%= 'active' if params[:controller] == 'admins/campaigns' %>"> <%= link_to "Campaigns", admins_campaigns_path %></li>
+          <li class="nav-link <%= 'active' if params[:controller] == 'admins/socials' %>"> <%= link_to "Socials", admins_socials_path %></li>
+          <li class="nav-link <%= 'active' if params[:controller] == 'admins/posts' %>"> <%= link_to "Posts", admins_posts_path %></li>
 
-      </ul>
+        </ul>
+        <ul class="navbar-nav">
+        <% if admin_signed_in? %>
+          <li>
+            <%= link_to('Logout', destroy_admin_session_path, :method => :delete) %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to('Login', new_admin_session_path) %>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    </nav>
 
-    </div><!--/.nav-collapse -->
+
+  <div class='container'>
+    <% flash.each do |key, value| %>
+      <div class='alert alert-<%= key %>'><%= value %></div>
+    <% end %>
+    <%= yield %>
+    <%= debug(params) if Rails.env.development? %>
   </div>
-</div>
-   
-<div class='container-fluid'>
-  <% flash.each do |key, value| %>
-      <div class='alert <%= bootstrap_class_for(key) %>'><%= value %></div>
-  <% end %>
-  <%= yield %>
-  <%= debug(params) if Rails.env.development? %>
-</div>
 
   </body>
+
 </html>
