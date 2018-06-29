@@ -65,7 +65,7 @@ getOffice = () ->
     query = "?q[position_eq]="+position_enum+"&q[state_id_eq]="+state_id;
   console.log("query: "+query);
   $.ajax 
-    url: "/api/v1/offices"+query
+    url: "/api/api/v1/offices"+query
     type: "GET"
     dataType: "json"
     success: (data) ->
@@ -83,7 +83,7 @@ getOffice = () ->
 getDistricts = () ->
   state_id = $('#admins_election_office_attributes_state_id').find('option:selected').val();
   $.ajax
-    url: "/api/v1/districts?state_id="+state_id
+    url: "/api/api/v1/districts?state_id="+state_id
     type: "GET"
     dataType: "json"
     success: (data) ->

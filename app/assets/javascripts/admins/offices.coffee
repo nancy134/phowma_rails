@@ -37,7 +37,7 @@ getDistricts = () ->
   console.log("getDistricts()");
   state_id = $('#admins_office_state_id').find('option:selected').val();
   $.ajax
-    url: "/api/v1/districts?state_id="+state_id
+    url: "/api/api/v1/districts?state_id="+state_id
     type: "GET"
     dataType: "json"
     success: (data) ->

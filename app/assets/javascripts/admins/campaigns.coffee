@@ -56,7 +56,7 @@ getDistricts = () ->
   state_id = $("#admins_campaign_election_attributes_office_attributes_state_id").find("option:selected").val();
   position = $("#admins_campaign_election_attributes_office_attributes_position").find("option:selected").val();
   $.ajax
-    url: "/api/v1/districts?state_id="+state_id
+    url: "/api/api/v1/districts?state_id="+state_id
     type: "GET"
     dataType: "json"
     success: (data) ->
@@ -101,7 +101,7 @@ getOffice = () ->
     query = "?q[position_eq]="+position_enum+"&q[state_id_eq]="+state_id;
   console.log("query: "+query);
   $.ajax 
-    url: "/api/v1/offices"+query
+    url: "/api/api/v1/offices"+query
     type: "GET"
     dataType: "json"
     success: (data) ->
@@ -121,7 +121,7 @@ getDates = () ->
 
 setDates = () ->
   office_id = $('#admins_campaign_election_attributes_office_id').find('option:selected').val();
-  query = "/api/v1/elections?q[office_id_eq]="+office_id;
+  query = "/api/api/v1/elections?q[office_id_eq]="+office_id;
   console.log("query: "+query);
   $.ajax
     url: query 
