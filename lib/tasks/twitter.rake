@@ -9,7 +9,8 @@ namespace :twitter do
       config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
     end
 
-    Admins::Politician.all.each do |politician|
+    politicians = Admins::Politician.order("RANDOM()").limit(800)
+    politicians.each do |politician|
       puts "#{politician.first_name} #{politician.last_name}"
       if (politician.twitter)
         user_timeline = client.user_timeline(politician.twitter, {count: 2, include_rts: false, trim_user: true, exclude_replies: true, include_entities: true})

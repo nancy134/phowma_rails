@@ -88,3 +88,5 @@ gem 'omniauth-facebook'
 gem 'bootstrap-datepicker-rails'
 
 gem 'font-awesome-rails'
+
+gem 'whenever'
