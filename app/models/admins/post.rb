@@ -1,5 +1,5 @@
 class Admins::Post < ApplicationRecord
-  belongs_to :politication, class_name: 'Admins::Politician'
+  belongs_to :politician, class_name: 'Admins::Politician'
 
   enum social_type: [:twitter, :facebook]
 

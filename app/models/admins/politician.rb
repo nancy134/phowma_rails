@@ -12,7 +12,7 @@ class Admins::Politician < ApplicationRecord
   has_many :campaigns, class_name: "Admins::Campaign"
   has_many :elections, through: :campaigns
 
-  has_many :posts, -> {order(social_date: :desc).limit(1)}, class_name: 'Admins::Post'
+  has_many :posts, -> {order(social_date: :desc)}, class_name: 'Admins::Post'
 
   def self.import(file)
     CSV.foreach(file.path, headers: true, :row_sep => :auto) do |row|
