@@ -14,5 +14,11 @@
   <strong>Check Registration:</strong>
   <%= @admins_state.registered %>
 </p>
+
+<p>
+  <strong>Voting website:</strong>
+  <%= @admins_state.voting %>
+</p>
+
 <%= link_to 'Edit', edit_admins_state_path(@admins_state) %> |
 <%= link_to 'Back', admins_states_path %>

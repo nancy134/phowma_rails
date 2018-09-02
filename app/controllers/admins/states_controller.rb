@@ -78,6 +78,6 @@ class Admins::StatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admins_state_params
-      params.require(:admins_state).permit(:name, :abbreviation, :registered)
+      params.require(:admins_state).permit(:name, :abbreviation, :registered, :voting)
     end
 end
