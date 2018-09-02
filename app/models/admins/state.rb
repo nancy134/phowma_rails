@@ -6,6 +6,7 @@ class Admins::State < ApplicationRecord
   has_many :election_results, class_name: 'Admins::ElectionResult'
   has_many :districts, class_name: 'Admins::District'
   has_many :elections, class_name: 'Admins::Election'
+  has_many :offices, through: :elections
 
   def self.import(file)
     CSV.foreach(file.path, headers: true, :row_sep => :auto) do |row|
@@ -21,6 +22,17 @@ class Admins::State < ApplicationRecord
 
   end
 
+  def senate_election
+    
+    election = elections.joins(:office).where('admins_offices.position = 0')
+    Rails.logger.debug "election: #{election.to_json}"
+    Rails.logger.debug "election.length: #{election.length}"
+    if (election.length > 0)
+      return true
+    else 
+      return false
+    end
+  end
   def house
     politician = politicians.where(position: "representative")
     return politician.length

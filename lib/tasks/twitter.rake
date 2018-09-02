@@ -35,6 +35,21 @@ namespace :twitter do
       end
     end
   end
+  desc "cleanup old tweets"
+  task cleanup: :environment do
+    politicians = Admins::Politician.all
+    politicians.each do |politician|
+      puts "name: #{politician.first_name} #{politician.last_name}"
+      posts = politician.posts
+      puts "length: #{posts.length}"
+      if (posts.length > 2)
+        for i in 2..posts.length-1
+          puts "posts: #{posts[i].social_date}"
+          posts[i].destroy
+        end
+      end
+    end
+  end
   desc "yo_memo"
   task yo_memo: :environment do
     client = Twitter::REST::Client.new do |config|
