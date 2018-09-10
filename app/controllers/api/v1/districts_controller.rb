@@ -46,6 +46,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
             end
             response = conn.get '/civicinfo/v2/representatives', { :key => 'AIzaSyCnf229S5uGfG2gRpnE6npbHXZZgOxOyNo', :address => query, :includeOffices => 'false', :roles => 'legislatorLowerBody' }
             repo_info = JSON.parse(response.body)
+            Rails.logger.debug "repo_info: #{repo_info}"
             if (repo_info['divisions'])
                 if (repo_info['divisions'].keys.first)
                     key = repo_info['divisions'].keys.first
@@ -55,6 +56,14 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                         district_record = Admins::District.where(number: splits[3], state_id: state_record.id).first
                         state = ""
                         if (district_record) 
+                            state = district_record.state.abbreviation
+                            state_id = district_record.state.id
+                        end
+                        render json: district_record, serializer: Api::V1::DistrictSerializer, include: ['politician', 'state'] and return
+                    elsif (splits.length == 3)
+                        state_record = Admins::State.where(abbreviation: repo_info['normalizedInput']['state']).first
+                        district_record = Admins::District.where(number: 0, state_id: state_record.id).first
+                        if (district_record)
                             state = district_record.state.abbreviation
                             state_id = district_record.state.id
                         end

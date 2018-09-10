@@ -7,7 +7,7 @@ class Admins::Politician < ApplicationRecord
   has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100#"}, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
-  enum party: [:democrat, :republican, :independent, :vacant]
+  enum party: [:democrat, :republican, :independent, :vacant, :libertarian]
 
   has_many :campaigns, class_name: "Admins::Campaign"
   has_many :elections, through: :campaigns
