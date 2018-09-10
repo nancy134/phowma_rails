@@ -44,7 +44,7 @@ class Api::V1::DistrictsController < Api::V1::BaseController
                 faraday.response :detailed_logger
                 faraday.adapter Faraday.default_adapter
             end
-            response = conn.get '/civicinfo/v2/representatives', { :key => 'AIzaSyCnf229S5uGfG2gRpnE6npbHXZZgOxOyNo', :address => query, :includeOffices => 'false', :roles => 'legislatorLowerBody' }
+            response = conn.get '/civicinfo/v2/representatives', { :key => ENV['GOOGLE_API_KEY'], :address => query, :includeOffices => 'false', :roles => 'legislatorLowerBody' }
             repo_info = JSON.parse(response.body)
             Rails.logger.debug "repo_info: #{repo_info}"
             if (repo_info['divisions'])
