@@ -1,0 +1,38 @@
+<%= form_with(model: admins_message, local: true) do |f| %>
+  <% if admins_message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(admins_message.errors.count, "error") %> prohibited this admins_message from being saved:</h2>
+
+      <ul>
+      <% admins_message.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, class: "col-md-2 control-label" %>
+    <div class="col-md-4">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email, class: "col-md-2 control-label" %>
+    <div class="col-md-4">
+      <%= f.text_field :email, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :message, class: "col-md-2 control-label" %>
+    <div class="col-md-4">
+      <%= f.text_field :message, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

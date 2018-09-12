@@ -1,0 +1,27 @@
+<table class="table">
+  <thead>
+    <tr>
+      <td>Id</td>
+      <th><%= sort_link(@search, :name, "Name") %></th>
+      <th><%= sort_link(@search, :email, "Email") %></th>
+      <th>Message</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render 'filter', search:@search %>
+    <% @admins_messages.each do |admins_message| %>
+      <tr>
+        <td><%= admins_message.id %></td>
+        <td><%= admins_message.name %></td>
+        <td><%= admins_message.email %></td>
+        <td><%= admins_message.message %></td>
+        <td><%= link_to 'Show', admins_message %></td>
+        <td><%= link_to 'Edit', edit_admins_message_path(admins_message) %></td>
+        <td><%= link_to 'Destroy', admins_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @admins_messages %>
+<br>
