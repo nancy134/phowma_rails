@@ -71,6 +71,7 @@ Rails.application.routes.draw do
       resources :offices, only: [:index]
       resources :posts, only: [:index]
       resources :settings, only: [:index]
+      resources :messages, only: [:create]
       #resources :contacts, only: [:index, :new, :all]
       resources :contacts do
         collection do
