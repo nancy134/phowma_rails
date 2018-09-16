@@ -13,7 +13,7 @@ module PhowmaRails
     # -- all .rb files in that directory are automatically loaded.
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'http://server.phowma.com', 'http://www.voter-information.com'
+        origins 'https://server.phowma.com', 'https://www.voter-information.com'
         resource '*', :headers => :any, :methods => [:get, :post, :options]
       end
     end
