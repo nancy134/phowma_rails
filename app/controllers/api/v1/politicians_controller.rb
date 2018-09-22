@@ -29,4 +29,8 @@ class Api::V1::PoliticiansController < Api::V1::BaseController
     #render json: @politicians.map(&:last_name)
     render json: @politicians, each_serializer: Api::V1::PoliticianAutoSerializer
   end
+  def search
+    @politicians = Admins::Politician.order(:last_name)
+    render json: @politicians, each_serializer: Api::V1::PoliticianSearchSerializer
+  end
 end

@@ -84,6 +84,9 @@ class Admins::PoliticiansController < ApplicationController
         :party,
         :avatar,
         :twitter,
+        :twitter_bio,
+        :twitter_image,
+        :twitter_banner,
         :facebook)
     end
 end

@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       resources :politicians do
         collection do
           get :autocomplete
+          get :search
         end
       end 
       resources :stores, only: [:index]
