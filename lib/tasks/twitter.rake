@@ -10,6 +10,7 @@ namespace :twitter do
     end
 
     politicians = Admins::Politician.order("RANDOM()").limit(400)
+    #politicians = Admins::Politician.where(id: 1130)
     politicians.each do |politician|
       puts "#{politician.first_name} #{politician.last_name}"
       if (!politician.twitter.blank?)
@@ -19,7 +20,7 @@ namespace :twitter do
         politician.twitter_banner = user.profile_banner_url
         politician.save
       end
-      if (politician.twitter.blank?)
+      if (!politician.twitter.blank?)
         user_timeline = client.user_timeline(politician.twitter, {count: 2, include_rts: false, trim_user: true, exclude_replies: true, include_entities: true})
 
         user_timeline.each do |tweet|
